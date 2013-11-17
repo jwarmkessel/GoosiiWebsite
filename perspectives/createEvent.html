@@ -1,0 +1,822 @@
+<!-- Resources 
+
+Icons : https://www.iconfinder.com/search/?q=iconset%3Abrightmix#top 
+Dividers : 	http://css-tricks.com/examples/hrs/
+-->
+
+<style media="screen" type="text/css">
+
+	label{
+	    display: inline-block;
+	    float: left;
+	    clear: left;
+	    width: 34.5%;
+	    text-align: right;
+			font-family: Futura; 
+			font-size:25px;
+			margin-top:20px;
+			margin-right:5px;	
+	}
+	input {
+	  display: inline-block;
+	  float: left;
+	}
+
+	body {
+		width:100%;
+		height:1000px;
+/*		background-image: -moz-linear-gradient(top, #FDF3E7, #eff108);
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#FDF3E7), to(#fff));
+	  background-image: -webkit-linear-gradient(top, #FDF3E7, white);*/
+/*		background:#FFE673;*/
+		/*background: #1e5799; /* Old browsers */
+/*			background: -moz-linear-gradient(top,  #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */*/
+/*			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */*/
+/*			background: -webkit-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */*/
+/*			background: -o-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */*/
+/*			background: -ms-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */*/
+/*			background: linear-gradient(to bottom,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */*/
+/*			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); */
+
+	 }
+
+	input {
+		height:45px;	
+		width:50%;
+		font-size:15px;
+		margin-top:10px;
+	}
+
+	button {
+		clear:both;
+		height:50px;
+		width:300px;
+		font-size:20px;
+	}
+
+	#submitBtn {
+		float:left;
+		clear:both;
+		padding-left:260px;
+		padding-top:30px;
+	}
+
+	#getCompanyBtnContainer {
+		padding-left: 10%
+	}
+
+	#wrapper {
+		width: 100%;
+		height:1000px;
+		clear:both;
+/*		border: 1px solid black;*/
+	}
+	
+	#first {
+		width: 50%;
+		height:1000px;
+/*		border: 1px solid red;*/
+		float:left;
+	}
+	#second {
+		float:left;
+/*		border: 1px solid green;*/
+		width:50%;
+		height:1000px;
+		overflow: hidden; /* if you don't want #second to wrap below #first */
+	}
+	#currentEventWrapper {
+		width: 100%;
+		height:50%;
+/*		border: 1px solid black;*/
+		background-color:white;
+		padding-left:10%;
+	}
+	#currentProgressBarContainer {
+		width: 50%;
+		height:200px;
+/*		border: 1px solid red;*/
+		float:left;
+	}
+	#currentRewardPreviewContainer {
+		float:left;
+/*		border: 1px solid green;*/
+		width:34%;
+
+		overflow: hidden; /* if you don't want #second to wrap below #first */
+		padding-left: 75px;
+	}
+
+	progress {  
+	  background-color: #f3f3f3;  
+	  border: 0;  
+	  height: 50px;  
+		width: 90%;
+	  border-radius: 9px;  
+		margin-top:10px;
+	}
+
+	.inputExampleLbl {
+		margin-left:35.2%;
+		float:left;
+		color:#200772;
+		font-size:12px;
+		width:50%;
+		clear:both;
+	}
+
+	#createEventHeader {
+		background-color:#C63D0F;
+		color:white;	
+		height:255px;
+
+	}
+
+	#currentRewardImgPreview {
+		width:40%;
+	}
+
+	#rewardImgPreview, #mobileBackgroundImagePreview {
+		float:left;
+	}
+	#mobileBackgroundImagePreview {
+
+		width:44.5%;
+	}
+
+	.uploadRewardImage {
+		clear:both;
+	}
+
+	#uploadFormReward, #uploadForm {
+		float:left;	
+		margin-left:255px;	
+	}
+
+	#inputFileReward, #inputFile {
+		height:45px;
+		width:200px;
+		margin-right:10px;
+	}
+
+	#inputSubmit, #inputSubmitReward {
+		float: left; 
+		height: 50px; 
+		width: 100px; 
+		font-size: 15px; 
+	}
+
+	html,body {
+	    width: 100%;
+	    height: 100%;
+	    margin: 0px;
+	    padding: 0px;
+	    overflow-x: hidden; 
+	}
+	
+	.CEVInfo {
+		margin-top:10px;
+		width:100%;
+	}
+	
+	/*http://css-tricks.com/examples/hrs/*/
+	.segmentation {
+		height: 12px;
+		border: 0;
+		box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.5);	
+		width:100%;
+	}
+	
+	.verticalSegmentation {
+     border-left:1px solid #38546d; 
+     border-right:1px solid #16222c; 
+     height:80px;
+     position:absolute;
+     right:249px;
+     top:10px; 
+	}
+	
+	.editable {
+		background-image:url('../images/editBtn.png');
+		background-size: cover;
+		background-repeat: no-repeat;	
+		height:30px;
+		width:30px;
+		border: none;
+		margin-left:10px;
+		cursor: hand;
+	}
+	
+	#popMenu {
+		position:absolute;
+		display: block;
+		width:600px;
+		top: 40%;
+   	left: 50%;
+   	margin-top: -100px; /* Half the height */
+   	margin-left: -300px; /* Half the width */
+		background-image: -moz-linear-gradient(top, #FDF3E7, #eff108);
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#FDF3E7), to(#fff));
+	  background-image: -webkit-linear-gradient(top, #FDF3E7, white);
+		border: solid 1.5px #666;
+		border-radius: 3px;
+		height:30%;
+		z-index: 100;
+	}
+		
+	#popUpMenuContainer {
+	}
+	
+	#popUpMenuTitle {
+		margin-top: 30px;
+		text-align:center;
+	}
+	
+	#popUpMenuInput {
+		margin-left: 25%;
+		text-align:center;
+	}
+	
+/*	.locker {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.8); /*lets make it semi-transparent */
+		/*z-index: 9999; /*because you could set some z-indexes in your code before, so lets make sure that this will be over every elements in html*/
+/*	}*/
+
+/* THIS IS COOL BUTTON CODE 			<a href="javascript:void(0);">Save</a>*/	
+/*	a {
+		position: relative;
+	    color: rgba(255,255,255,1);
+	    text-decoration: none;
+	    background-color: rgba(219,87,5,1);
+	    font-family: 'Open Sans', Helvetica;
+	    font-weight: 700;
+	    font-size: 3em;
+	    display: block;
+	    padding: 4px;
+	    -webkit-border-radius: 8px;
+	    -moz-border-radius: 8px;
+	    border-radius: 8px;
+	    -webkit-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+	    -moz-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+	    box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+	    margin: 100px auto;
+			width: 160px;
+			text-align: center;
+
+		-webkit-transition: all .1s ease;
+		-moz-transition: all .1s ease;
+		-ms-transition: all .1s ease;
+		-o-transition: all .1s ease;
+		transition: all .1s ease;
+	}
+
+	a:active {
+	    -webkit-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+	    -moz-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+	    box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+	    position: relative;
+	    top: 6px;
+	}*/
+	
+	#CEVSaveBtn {
+		margin-top:30px;
+		margin-left: 30px;
+		width: 200px;
+		cursor:hand;
+		float:left;
+		height:44px;
+	}
+	
+	#CEVCancelBtn {
+		float:left;
+		margin-top:55px;
+		margin-left: 200px;
+		width: 100px;
+		list-style-type: none;
+		border-bottom: solid 1px;
+		cursor: hand;
+	}
+</style>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>createEvent</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> 
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<!-- <meta name="viewport" content="width=device-width, initial-zoom=1" />	 -->
+	<!-- Date: 2013-10-09 -->
+</head>
+<body>
+	
+	<div id="popMenu" style="display:none;">
+		<div id="popUpMenuContainer">
+			<div id="popUpMenuTitle" type="text">Foo bar</div>
+			<input id="popUpMenuInput" type="text"/>			
+			<button id="CEVSaveBtn" type="button">Save</button>
+			<span id="CEVCancelBtn">Cancel</spa>
+		</div>
+	</div>
+	
+	<section id="createEventHeader" style="font-family: Futura; font-size:3em;" > 
+		<img border="0" style="margin-top:10px; height:140px; width:200px; margin-left:5%; margin-top: 3%;" src="../images/Goosii_Final_Logo.png">EVENTS</section>
+
+	<section style="font-family: Futura; font-size:40px; color: #666;background-color:white; margin-left:20px; margin-top:10px; width:100%">Current Event</section>
+	<section id="currentEventWrapper"> 
+		
+		<section id="currentProgressBarContainer">
+			<progress id="progressBar" value="" max="100"></progress>
+			<section id="CEVEndDate" style="font-family: Futura; float:right; color:#2A3141;padding-right: 10%;">Event ends</section>
+			<section style="margin-left: 22px; margin-top: 30px; width:100%;">			
+				<section class="CEVInfo" style="font-family: Futura; clear:both; color:#2A3141;" type="participationPost">To further Participate users will be posting: 
+					<span id="CEVParticipationPost" style="font-family: Futura; font-size:16px;color: #200772;"></span>	
+				</section>			
+				<section class="CEVInfo" style="font-family: Futura; color:#2A3141;" type="post">When the Event ends user's will be asked to post: 
+					<span id="CEVEventEndedPost" style="font-family: Futura; font-size:16px;color: #200772;" ></span>
+				</section>						
+				<section class="CEVInfo" style="font-family: Futura; color:#2A3141;">Facebook users will be linked to: 
+					<span id="CEVCompanyPromoSite" style="font-family: Futura; font-size:16px;color: #200772;" ></span>
+				</section>
+			</section>
+		</section>
+		
+		<section id="currentRewardPreviewContainer">
+			<img id="currentRewardImgPreview" border="1" style="margin-top:10px; width:40%; border:0.5px solid #666; height:34%;" src=""></img>	
+			
+			<section style="width:100%" type="reward">Reward: <span id="CEVReward" style="font-family: Futura; font-size:16px;color: #200772;" ></span></section>
+			<section style="width:100%" type="password">Authentication password is: <span id="CEVPassword" style="font-family: Futura; font-size:16px;color: #200772;" ></span></section>						
+		</section>
+			
+	</section>
+	
+	<section style="width:100%; height:150px;">
+		<section id="getCompanyBtnContainer" style="width:100%;">
+			<button id="getCompanyBtn" type="button" style="margin-top:10px">Refresh</button><input VALUE="5233805ec22ccd54d6fd2cff" type="text" id="objId" style="height:50px; width:24%;"><br>
+		</section>
+	</section>
+	
+	<hr class="segmentation">
+	<section style="font-family: Futura; font-size:40px; color: #666;background-color:white; margin-left:20px; margin-top:10px; width:100%;">Create Event</section>
+		
+	<section id="wrapper">
+		<section>
+			<form id="first" action="demo_form.asp" autocomplete="on" style="font-family: Futura; font-size:1em;">
+				<label>  Object Id:	 </label><input type="text" id="objId"><br>
+				<label>  Start Date: </label><input type="text" id="startDate"><br>	
+					<div class="inputExampleLbl">Use "0" for now, "1" for tomorrow, "2" for day after and etc...</div><br>				
+				<label>  End Date: 	 </label><input type="text" id="endDate" autocomplete="off"><br>
+					<div class="inputExampleLbl">Use "0" for now, "1" for tomorrow, "2" for day after and etc...</div><br>
+
+				<label>  Website:		 </label><input type="text" id="website"><br>
+					<div class="inputExampleLbl">Ex: "http://yourCompanyName.Goosii.com"</div><br>				
+				
+				<label>	 Post:			 </label><input type="text" id="post"><br>
+					<div class="inputExampleLbl">This is the default message that is posted when the event has ended.</div><br>				
+				<label>	 Participation Post: </label><input type="text" id="participationPost"><br>
+					<div class="inputExampleLbl">This is the default message that is posted when users are increasing participation.</div><br>				
+				<label>	 Password: 	 </label><input type="text" id="password" autocomplete="off"><br>
+				<label>	 Reward label:</label><input type="text" id="prize" autocomplete="off"><br>				
+				<section id="submitBtn">
+					<button type="button">Create Event</button>
+				</section>
+			</form>
+			
+		</section>
+		<section id="second">
+
+			<label>	 Reward Image </label>
+			<img id="rewardImgPreview" border="1" style="margin-top:10px; width:28%; border:0.5px solid #666" src=""></img><br>				
+			<section class="uploadRewardImage">
+				<section id='uploadFormReward'  enctype='multipart/form-data' method="POST" action='http://www.goosii.com:3001/test'> <!--  action='/fileUpload' -->
+					<input id="inputFileReward" type="file"></input>
+					<input id='inputSubmitReward' type='button' value='upload'></input>
+	        <div id="fileNameReward"></div>
+	        <div id="fileSizeReward"></div>
+	        <div id="fileTypeReward"></div>
+	        <div id="progressReward"></div>
+  			</section>
+			</section><br>
+			<label>	 Mobile Background </label>
+			<img id="mobileBackgroundImagePreview" border="1" style="margin-top:10px; border:0.5px solid #666" src=""></img><br>		
+			<section class="uploadRewardImage">
+				<section id='uploadForm'  enctype='multipart/form-data' method="POST" action='http://www.goosii.com:3001/test'> <!--  action='/fileUpload' -->
+					<input id="inputFile" type="file"></input>
+					<input id='inputSubmit' type='button' value='upload'></input>
+	        <div id="fileName"></div>
+	        <div id="fileSize"></div>
+	        <div id="fileType"></div>
+	        <div id="progress"></div>
+  			</section>
+			</section><br>
+
+		</section>
+	</section>
+
+</body>
+</html>
+
+<script>	
+	
+	var companyObject; 
+	
+	var getCurrentUtcTimestamp = function() {
+	  var now = new Date;
+	  var curTime = Date.UTC(now.getFullYear(),now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());    
+	  return curTime;
+
+	};
+	
+	var getHumanReadableUtcTime = function(time) {
+		var date = new Date(time)
+		  , datevalues = [
+		         date.getFullYear()
+		        ,date.getMonth()+1
+		        ,date.getDate()
+		        // ,date.getHours()
+		        // ,date.getMinutes()
+		        // ,date.getSeconds()
+		     ];
+		return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear();
+		alert(datevalues); //=> [2011, 3, 25, 23, 0, 0]
+	}
+	
+	var popUpMenu = function(element) {
+		$('#popUpMenuTitle').html($(element).parent().parent().text());
+		$('#popUpMenuInput').attr('value', $(element).parent().text());
+		$('#popMenu').fadeIn(200);
+		
+		$('#CEVSaveBtn').attr("type", $(element).parent().parent().attr("type"));
+	}
+	
+	$('#CEVCancelBtn').click(function() {				
+		console.log("Canceling");
+		$('#popMenu').toggle(200);
+
+	});
+	
+	$('#CEVSaveBtn').click(function(compObject) {				
+		console.log(companyObject);
+		$('#popMenu').toggle(200);
+		
+		var key = $(this).attr("type");
+
+		$.each(companyObject.contest, function(index, value) {
+			if(index == key) {
+				companyObject.contest[index] = $('#popUpMenuInput').val();
+			}
+		});
+			
+		var companyObj = $.getJSON('http://www.goosii.com:3001/createContest/' + $('#objId').val() + '/' + encodeURIComponent(companyObject.contest) + '?callback=?',function  (data) {
+
+			//Update interface data.
+			getCompanyObject();
+			
+		});
+	});
+	
+	var getCompanyObject = function() {
+		
+		//Sample: 5233805ec22ccd54d6fd2cff
+		var companyObj = $.getJSON('http://www.goosii.com:3001/getComp/' + $('#objId').val() + '?callback=?',function  (data) {	 //52785a29e97c2e1e62000001
+		// var companyObj = $.getJSON('http://www.goosii.com:3001/getComp/5233805ec22ccd54d6fd2cff?callback=?',function  (data) {
+			console.log(data) ;
+
+			companyObject = data;
+			
+			$( "#currentRewardImgPreview" ).css({ 'height' : ''});
+			$( "#CEVEventEndedPost" ).html(data.contest.post + "<img id='CEVEventEndedPostEdit' class='editable' />" );		
+			$( "#CEVParticipationPost" ).html(data.contest.participationPost + "<img id='CEVParticipationPostEdit' class='editable' />" );
+			$( "#CEVCompanyPromoSite" ).html(data.contest.website);
+			
+			$( "#CEVReward" ).html(data.contest.prize + "<img id='CEVRewardEdit' class='editable' />" );
+			$( "#CEVPassword" ).html(data.contest.password + "<img id='CEVPasswordEdit' class='editable' />" );
+			
+			var dateString = getHumanReadableUtcTime(data.contest.endDate);
+			$( "#CEVEndDate" ).html("Event ends " + dateString);
+			
+			//Bind edit buttons 
+			$('#CEVParticipationPostEdit').on( "click", function() {				
+				popUpMenu(this);
+			});		
+
+			$('#CEVEventEndedPostEdit').click(function() { 
+				popUpMenu(this);
+			});
+
+			$('#CEVRewardEdit').click(function() { 
+				popUpMenu(this);
+			});
+
+			$('#CEVPasswordEdit').click(function() { 
+				popUpMenu(this);
+			});
+			
+
+			
+			//Company contest information
+			$( "#companyContestInfo" ).append("<div id='companyInfoBlock' ></div>");
+
+			$( "#companyInfoBlock" ).append("<div> Start Date: "+ data.contest.startDate + "</div>");
+
+
+			$( "#companyInfoBlock" ).append("<div> Job Id: "+ data.contest.jobId + "</div>");			
+		
+			$( "#website" ).val(data.contest.website);
+			$( "#imageLink" ).val(data.contest.prizeImg);	
+			$( "#prize" ).val(data.contest.prize);
+			$( "#post" ).val(data.contest.post);		
+			$( "#participationPost" ).val(data.contest.participationPost);	
+			$( "#password" ).val(data.contest.password);
+			$( "#mobileBackgroundImage" ).val(data.contest.mobileBackgroundImage);
+			
+			//Load reward image
+			
+			var myImageElement = document.getElementById('currentRewardImgPreview');
+			myImageElement.src = "http://www.goosii.com/companyAssets/"+ $('#objId').val() +"/rewardImage.jpg" + '?rand=' + Math.random();
+			console.log(data.contest.prizeImg);
+		
+			var myImageElement = document.getElementById('rewardImgPreview');
+			myImageElement.src = "http://www.goosii.com/companyAssets/"+ $('#objId').val() +"/rewardImage.jpg" + '?rand=' + Math.random();
+			console.log(data.contest.prizeImg);
+
+			//Load mobile background image
+		
+			var myImageElement = document.getElementById('mobileBackgroundImagePreview');
+
+			myImageElement.src = "http://www.goosii.com/companyAssets/"+ $('#objId').val() +"/backgroundImage.jpg" + '?rand=' + Math.random();
+			console.log(data.mobileBackgroundImg);
+
+
+			//Progress Bar
+			var startDate = parseInt(data.contest.startDate);
+			var endDate = parseInt(data.contest.endDate);
+		
+			if(getCurrentUtcTimestamp() < endDate) {
+				var totalDuration = endDate - startDate;
+				var totalProgress = getCurrentUtcTimestamp() - startDate;
+			
+				var percentage = (totalProgress/totalDuration) * 100;
+				$('#progressBar').attr('value',percentage);	
+				
+				//Set the opacity of create event because there is an ongoing event.
+				$( '#first' ).css('opacity', 0.4);
+				$( '#first' ).css('filter', 'alpha(opacity=40)');
+				
+				$( '#submitBtn' ).hide();
+			} else if((getCurrentUtcTimestamp() < startDate) ) {
+				//If an event is already scheduled.
+				
+				//Set the opacity of create event because there is an ongoing event.
+				$( '#first' ).css('opacity', 0.4);
+				$( '#first' ).css('filter', 'alpha(opacity=40)');
+				
+			} else {
+				$('#progressBar').attr('value',100);
+				$('#progressBarContainer').text("No Current Event");	
+
+				$( '#currentProgressBarContainer' ).css('opacity', 0.4);
+				$( '#currentProgressBarContainer' ).css('filter', 'alpha(opacity=40)');
+				
+
+			}
+																
+			//$('#companyInfo').html(JSON.stringify(data), null, 20);
+		
+			return data;
+		});
+	};
+
+	//Get company object information 
+	$('#getCompanyBtn').click(function() {
+
+		//Remove previous company info
+		$( "#companyInfoBlock" ).remove();
+	
+		//Get company object
+		var compData = getCompanyObject();	
+
+	});
+
+	var convertDateInputToUTC = function(days) {
+		var multiplier = 86400000;
+		var curTime = getCurrentUtcTimestamp();
+		var timestamp;
+		
+		if(0 == days) {
+			return curTime;
+		} else {
+			timestamp = (days * multiplier) + curTime;
+			return timestamp;
+		}
+	
+	};
+
+	//Set the event
+	$('#submitBtn').click(function() {
+
+		//Remove previous company info
+		$( "#companyInfoBlock" ).remove();
+	
+		var startTime = convertDateInputToUTC(parseInt($( "#startDate" ).val()));
+		var endTime = convertDateInputToUTC(parseInt($( "#endDate" ).val()));	
+	
+		console.log( "The website " + $( "#website" ).val());
+		//Create Event data object	
+		var eventObject = 
+											{ "startDate" : startTime,
+		                      "endDate" : endTime, 
+													"website" : $( "#website" ).val(),
+		                        "prize" : $( "#prize" ).val(), 
+		                     "prizeImg" : $( "#imageLink" ).val(),
+						"mobileBackgroundImage" : $( "#mobileBackgroundImage" ).val(),
+		            "participationPost" : $( "#participationPost" ).val(),
+		                     "password" : $( "#password" ).val(),
+		                         "post" : $( "#post" ).val()
+		                   };
+	
+		var eventString = JSON.stringify(eventObject);
+	
+		var companyObj = $.getJSON('http://www.goosii.com:3001/createContest/' + $('#objId').val() + '/' + encodeURIComponent(eventString) + '?callback=?',function  (data) {
+			console.log(data);
+		
+		//Update interface data.
+		var compData = getCompanyObject();	
+
+		});
+	});
+
+	$('#rewardImgPreview').click(function() {
+		// from an input element
+	
+	});
+
+	// var filesToUpload = input.files;
+	// // from drag-and-drop
+	// 
+	// function onDrop(e) {
+	//   filesToUpload = e.dataTransfer.files;
+	// }
+	// 
+	// if (!file.type.match(/image.*/)) {
+	//   // this file is not an image.
+	// };
+	
+	var responseHandler = function(a,b,c) {
+		console.log(a);
+		console.log(b);
+		console.log(c);				
+	}
+	
+	$('#inputFile').on('change', function() {
+	    var delimeter = ': ';
+	    var file = $('#inputFile').get(0).files[0];
+	
+	    $('#fileName').text(['Name', file.name].join(delimeter));
+	    $('#fileSize').text(['Size', file.size].join(delimeter));
+	    $('#fileType').text(['Type', file.type].join(delimeter));
+	});
+
+	$('#inputFileReward').on('change', function() {
+	    var delimeter = ': ';
+	    var file = $('#inputFileReward').get(0).files[0];
+	
+	    $('#fileNameReward').text(['Name', file.name].join(delimeter));
+	    $('#fileSizeReward').text(['Size', file.size].join(delimeter));
+	    $('#fileTypeReward').text(['Type', file.type].join(delimeter));
+	});
+	//CORS CODE: 
+	
+	var createCORSRequest = function(method, url) {
+	  var xhr = new XMLHttpRequest();
+	  if ("withCredentials" in xhr) {
+	    // Most browsers.
+	    xhr.open(method, url, true);
+	  } else if (typeof XDomainRequest != "undefined") {
+	    // IE8 &amp; IE9
+	    xhr = new XDomainRequest();
+	    xhr.open(method, url);
+	  } else {
+	    // CORS not supported.
+	    xhr = null;
+	  }
+	  return xhr;
+	};
+	
+	$("#inputSubmit").click(function() {
+		var url = "http://www.goosii.com:3001/test";
+		var method = 'POST';
+		var xhr = createCORSRequest(method, url);
+
+    var fd = new FormData();
+		
+		console.log("input submit clicked");
+		console.log("The file " + $("#inputFile").get(0).files[0]);
+		
+		    fd.append("uploadingFile", $("#inputFile").get(0).files[0]);
+		    fd.append("date", (new Date()).toString()); // req.body.date
+		    fd.append("comment", "This is a test."); // req.body.comment
+				fd.append("companyId", $('#objId').val()); // req.body.comment						
+				fd.append("imageIsFor", "backgroundImage.jpg"); // req.body.comment						
+				
+		console.log("create XMLHttpRequest");
+		
+		  // var xhr = new XMLHttpRequest();
+		console.log("Additional xhr configuration settings");		
+    // xhr.upload.addEventListener('progress', uploadProgress, false);
+    // xhr.addEventListener('load', uploadComplete, false);
+    // xhr.addEventListener('error', uploadFailed, false);
+    // xhr.addEventListener('abort', uploadCanceled, false);
+
+		console.log("POST to Goosii");
+		//xhr.open("POST", 'http://localhost:3001/test');
+		//xhr.onreadystatechange = responseHandler;
+		// xhr.send(fd);
+		
+		
+		
+		xhr.send(fd);
+
+		// xhr.onload = function() {
+		//   console.log("success");
+		// };
+		// 
+		// xhr.onerror = function() {
+		// 	console.log("error.");
+		// };
+	});
+	
+	$("#inputSubmitReward").click(function() {
+		var url = "http://www.goosii.com:3001/test";
+		var method = 'POST';
+		var xhr = createCORSRequest(method, url);
+
+    var fd = new FormData();
+		
+		console.log("input submit clicked");
+		console.log("The file " + $("#inputFileReward").get(0).files[0]);
+		
+		    fd.append("uploadingFile", $("#inputFileReward").get(0).files[0]);
+		    fd.append("date", (new Date()).toString()); // req.body.date
+		    fd.append("comment", "This is a test."); // req.body.comment
+				fd.append("companyId", $('#objId').val()); // req.body.comment						
+				fd.append("imageIsFor", "rewardImage.jpg"); // req.body.comment						
+				
+		console.log("create XMLHttpRequest");
+		
+		    // var xhr = new XMLHttpRequest();
+		    // xhr.upload.addEventListener('progress', uploadProgress, false);
+		    // xhr.addEventListener('load', uploadComplete, false);
+		    // xhr.addEventListener('error', uploadFailed, false);
+		    // xhr.addEventListener('abort', uploadCanceled, false);
+		
+		// console.log("POST to Goosii");
+		//     xhr.open("POST", 'http://localhost:3001/test');
+		// xhr.onreadystatechange = responseHandler;
+		// xhr.send(fd);
+		
+		
+		
+		xhr.send(fd);
+
+		// xhr.onload = function() {
+		//   console.log("success");
+		// };
+		// 
+		// xhr.onerror = function() {
+		// 	console.log("error.");
+		// };
+	});
+
+	function uploadProgress(evt) {
+	    if(evt.lengthComputable) {
+	        var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+	        $('#progress').text(percentComplete.toString() + '%');
+	    } else {
+	        $('#progress').text('unable to compute');
+	    }
+	}
+
+	function uploadComplete(evt) {
+	    uploadProgress(evt);
+	    alert(evt.target.responseText);
+	}
+
+	function uploadFailed(evt) {
+	    alert('There was an error attempting to upload the file.');
+	}
+
+	function uploadCanceled(evt) {
+	    alert('The upload has been canceled by the user or the browser dropped the connection.');
+	}
+
+
+</script>

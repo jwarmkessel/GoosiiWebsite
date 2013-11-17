@@ -1,0 +1,196 @@
+<style>
+html,body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+
+#header {
+	background-color:#C63D0F;
+	color:white;	
+	height:255px;
+}
+
+.numberContainers {
+	margin-left:100px;
+	float:left;
+	color:#666666;
+	font-family: Arial;	
+}
+
+.container {
+	border: 3px solid #666666;
+}
+
+.numbers {
+		top: 10%;
+		left: 50%;
+		margin-top: 50px;
+		margin-left: 0px;
+		font-size: 85px;		
+}
+
+#checkins {
+	height: 175px;
+	width: 150px;
+	top: 10%;
+	left: 50%;
+	margin-top: 50px;
+	margin-left: 0px;
+	font-size: 85px;
+}
+
+#checkinsByEvent {
+/*	height:175px;*/
+	width:150px;
+	
+}
+
+#totalParticipantsByEvent {
+/*	margin-left:100px;*/
+	font-size:13px;
+/*	height:175px;*/
+	width:150px;
+}
+
+#totalParticipants {
+	height: 175px;
+	width: 150px;
+	top: 10%;
+	left: 50%;
+	margin-top: 50px;
+	margin-left: 0px;
+	font-size: 85px;
+}
+
+#totalValidatedCoupons {
+	height: 175px;
+	width: 150px;
+	top: 10%;
+	left: 50%;
+	margin-top: 50px;
+	margin-left: 0px;
+	font-size: 85px;
+}
+
+#totalValidatedCouponsByEvent {
+	font-size:13px;
+/*	height:175px;*/
+	width:150px;
+}
+</style>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>analytics</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Justin Warmkessel">
+
+	<!-- http://wijmo.com/downloads/ -->
+	<!--jQuery References-->
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js" type="text/javascript"></script>
+
+	<!--Theme-->
+	<link href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" type="text/css" />
+
+	<!--Wijmo Widgets CSS-->
+	<link href="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20132.15.min.css" rel="stylesheet" type="text/css" />
+
+	<!--Wijmo Widgets JavaScript-->
+	<script src="http://cdn.wijmo.com/jquery.wijmo-open.all.3.20132.15.min.js" type="text/javascript"></script>
+	<script src="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20132.15.min.js" type="text/javascript"></script>
+	<!-- Date: 2013-11-08 -->
+</head>
+<body>
+	<section id="header" style="font-family: Futura; font-size:3em;" > 
+		<img border="0" style="margin-top:10px; height:140px; width:200px; margin-left:5%; margin-top: 3%;" src="../images/Goosii_Final_Logo.png">Analytics</section>
+	<section>
+	<div class="numberContainers">
+		<div id="checkinsByEvent" class="container">
+			<div id="checkins" class="numbers">100</div>
+		</div>
+		<div id="totalParticipantsByEvent">Total New Participants in Event</div>
+	</div>
+	<div class="numberContainers">
+		<div id="totalParticipantsByEvent" class="container">
+			<div id="totalParticipants" class="numbers">100</div>
+		</div>
+		<div id="totalParticipantsByEvent">Total Participants</div>
+	</div>
+	<div class="numberContainers">
+		<div id="totalValidatedCouponsByEvent" class="container">
+			<div id="totalValidatedCoupons" class="numbers">100</div>
+		</div>
+		<div id="">Validated Coupons</div>
+	</div>
+	
+	<div id="wijlinechart" style="clear:both;"></div>
+</body>
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#wijlinechart").wijlinechart({
+			showChartLabels:false,hint:{content:function(){return this.y;}},
+							 header:{text:"Unique Participants Per Day"},
+					 seriesList:[
+												{
+													label:"Pizza California",
+													legendEntry:true,
+													data:{
+																x:[new Date("7/1/2005"),new Date("7/2/2005"),new Date("7/3/2005"),new Date("7/4/2005"),new Date("7/5/2005"),new Date("7/6/2005"),new Date("7/7/2005")],
+																y:[1,5,10,5,5,5,5]
+															},
+													markers:{visible:true,type:"circle"}
+												},
+												
+												// {label:"Hot Spot Cafe",
+												// legendEntry:true,
+												// data:{
+												// 				x:[new Date("7/1/2005"),new Date("8/1/2005"),new Date("10/1/2005"),new Date("12/1/2005"),new Date("3/1/2006"),new Date("7/1/2006"),new Date("12/1/2006"),new Date("1/1/2008")],
+												// 				y:[3,4,5,6,7,8,9,10]},
+												// markers:{visible:true,type:"circle"}
+												// },
+												
+												// {label:"Goosii",
+												// legendEntry:true,
+												// data:{
+												// 				x:[new Date("7/1/2005"),new Date("8/1/2005"),new Date("10/1/2005"),new Date("3/1/2006"),new Date("9/1/2006"),new Date("12/1/2006"),new Date("1/1/2008")],
+												// 				y:[15,15,17,100,200,455,600]},
+												// markers:{visible:true,type:"circle"}
+												// }
+											]
+		  });
+												
+		$(window).resize(function(){$("#wijlinechart").wijlinechart("redraw");
+		
+		});		
+	});
+		
+	$("#checkinsByEvent").click(function() {
+		$("#wijlinechart").wijlinechart("redraw");
+	});
+	$("#checkins").click(function() {
+		$("#wijlinechart").wijlinechart("redraw");
+	});
+	$("#totalParticipantsByEvent").click(function() {
+		$("#wijlinechart").wijlinechart("redraw");
+	});
+	
+		
+</script>
+												
+												
+												
+												
+												
+												
+												
+												

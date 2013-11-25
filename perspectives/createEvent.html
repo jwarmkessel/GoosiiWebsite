@@ -330,10 +330,11 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 	<section id="createEventHeader" style="font-family: Futura; font-size:3em;" > 
 		<img border="0" style="margin-top:10px; height:140px; width:200px; margin-left:5%; margin-top: 3%;" src="../images/Goosii_Final_Logo.png">EVENTS</section>
 
-	<section style="font-family: Futura; font-size:40px; color: #666;background-color:white; margin-left:20px; margin-top:10px; width:100%">Current Event</section>
+	<section style="font-family: Futura; font-size:40px; color: #666;background-color:white; margin-left:20px; margin-top:10px; width:100%">Pizza California - Current Event</section>
 	<section id="currentEventWrapper"> 
 		
 		<section id="currentProgressBarContainer">
+			<section>Progress Bar</section>
 			<progress id="progressBar" value="" max="100"></progress>
 			<section id="CEVEndDate" style="font-family: Futura; float:right; color:#2A3141;padding-right: 10%;">Event ends</section>
 			<section style="margin-left: 22px; margin-top: 30px; width:100%;">			
@@ -429,9 +430,12 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 	var companyObject; 
 	
 	var getCurrentUtcTimestamp = function() {
-	  var now = new Date;
-	  var curTime = Date.UTC(now.getFullYear(),now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());    
-	  return curTime;
+		var d = new Date();
+		var seconds = d.getTime();
+		
+	  // var now = new Date;
+	  // var curTime = Date.UTC(now.getFullYear(),now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());    
+	  return seconds;
 
 	};
 	
@@ -564,12 +568,31 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 			//Progress Bar
 			var startDate = parseInt(data.contest.startDate);
 			var endDate = parseInt(data.contest.endDate);
-		
-			if(getCurrentUtcTimestamp() < endDate) {
+			console.log("Current time " + getCurrentUtcTimestamp());
+			console.log("start time " + startDate);
+			console.log("end time " + endDate);
+			console.log("Total time " + (endDate - startDate));
+			
+			
+			if(getCurrentUtcTimestamp() < startDate) {
+				console.log("Now is before the beginning of the event");
+				//If an event is already scheduled.
+				
+				//Set the opacity of create event because there is an ongoing event.
+				$( '#first' ).css('opacity', 0.4);
+				$( '#first' ).css('filter', 'alpha(opacity=40)');
+			} else if(getCurrentUtcTimestamp() < endDate ) {
+				console.log("Now is before the end of the event");
 				var totalDuration = endDate - startDate;
 				var totalProgress = getCurrentUtcTimestamp() - startDate;
-			
+
+
+			console.log("ELAPSED TIME " + totalProgress);
+
+
+
 				var percentage = (totalProgress/totalDuration) * 100;
+				console.log("the percentage " + percentage);
 				$('#progressBar').attr('value',percentage);	
 				
 				//Set the opacity of create event because there is an ongoing event.
@@ -577,14 +600,9 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 				$( '#first' ).css('filter', 'alpha(opacity=40)');
 				
 				$( '#submitBtn' ).hide();
-			} else if((getCurrentUtcTimestamp() < startDate) ) {
-				//If an event is already scheduled.
-				
-				//Set the opacity of create event because there is an ongoing event.
-				$( '#first' ).css('opacity', 0.4);
-				$( '#first' ).css('filter', 'alpha(opacity=40)');
-				
+
 			} else {
+				console.log("There is no event");				
 				$('#progressBar').attr('value',100);
 				$('#progressBarContainer').text("No Current Event");	
 

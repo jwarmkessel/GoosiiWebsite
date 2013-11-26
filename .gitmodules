@@ -1,3 +1,6 @@
 [submodule "submodules/ChartJS"]
 	path = submodules/ChartJS
 	url = https://github.com/nnnick/Chart.js.git
+[submodule ".submodules/ChartJS"]
+	path = .submodules/ChartJS
+	url = https://github.com/nnnick/Chart.js

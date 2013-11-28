@@ -431,11 +431,11 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 	
 	var getCurrentUtcTimestamp = function() {
 		var d = new Date();
-		var seconds = d.getTime();
+		var milliseconds = d.getTime();
 		
 	  // var now = new Date;
 	  // var curTime = Date.UTC(now.getFullYear(),now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());    
-	  return seconds;
+	  return milliseconds;
 
 	};
 	
@@ -449,7 +449,7 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 		        // ,date.getMinutes()
 		        // ,date.getSeconds()
 		     ];
-		return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear();
+		return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + '  ' + date.getHours() + ':' + date.getMinutes();
 		alert(datevalues); //=> [2011, 3, 25, 23, 0, 0]
 	}
 	
@@ -585,21 +585,22 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 				console.log("Now is before the end of the event");
 				var totalDuration = endDate - startDate;
 				var totalProgress = getCurrentUtcTimestamp() - startDate;
+				
+				console.log("Start Date " + getHumanReadableUtcTime(startDate));
+				console.log("End Date " + getHumanReadableUtcTime(endDate));				
+				console.log("Current Time " + getHumanReadableUtcTime(new Date().getTime()));
 
-
-			console.log("ELAPSED TIME " + totalProgress);
-
-
+				console.log("ELAPSED TIME " + totalProgress);
 
 				var percentage = (totalProgress/totalDuration) * 100;
 				console.log("the percentage " + percentage);
 				$('#progressBar').attr('value',percentage);	
 				
 				//Set the opacity of create event because there is an ongoing event.
-				$( '#first' ).css('opacity', 0.4);
-				$( '#first' ).css('filter', 'alpha(opacity=40)');
-				
-				$( '#submitBtn' ).hide();
+				// $( '#first' ).css('opacity', 0.4);
+				// $( '#first' ).css('filter', 'alpha(opacity=40)');
+				// 
+				// $( '#submitBtn' ).hide();
 
 			} else {
 				console.log("There is no event");				
@@ -630,6 +631,8 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 	});
 
 	var convertDateInputToUTC = function(days) {
+		
+		//A day in milliseconds.
 		var multiplier = 86400000;
 		var curTime = getCurrentUtcTimestamp();
 		var timestamp;

@@ -176,11 +176,13 @@
 			<div id="iphoneTitle">The Independent Business Application</div>		
 		</div>
 	</div>
+
 </div>
 
 <div id="footer" style="position:absolute;"> 
   <div id="footer-links">
     <ul>
+      <li><a href="addParticipant.html">Add Participants</a></li>
       <li><a href="./views/contact.html">Contact</a></li>
       <!-- <li><a href="http://www.goosii.com/privacy/">Privacy</a></li> 
 Last Updated: 11/13/2013 ~ The Goosii app. relies on independent business locations for iPhone users to check in and take advantage of Goosii's unique application characteristics to better connect with that business' offers. If you are interested in being a beta test "user" of our application we invite you to get in touch. Also, if you own, or manage an independent business that is looking to verifiably increase sales we are looking for beta partners, please get in touch.
@@ -253,8 +255,16 @@ $( document ).ready(function() {
 
 	detectMobile();
 	defaultWidth();
+
+
 });	
 
+var companyObj = $.getJSON('http://localhost:3000/getComp/asdf?callback=?',function  (data) {
+			console.log(data);
+		});
 
+var testObject = {"name" : "blah"};
+
+var companyObj = $.getJSON('http://localhost:3000/insertIntoDb/' + encodeURIComponent(testObject) );
 
 </script>

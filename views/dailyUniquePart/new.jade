@@ -1,0 +1,21 @@
+extends ../layout
+block content
+	h1 New DUP
+
+	form(method='post', action='/dailyUniquePart')
+		fieldset
+			legend Add a DUP
+			div.clearfix
+				label DUP
+				label Company Id
+				div.input
+					input(name='dailyUniquePart[company_id]', class='xlarge')
+				label Timestamp
+				div.input
+					input(name='dailyUniquePart[timestamp]', class='xlarge' type='date')
+				label User Id
+				div.input
+					input(name='dailyUniquePart[user_id]', class='xlarge')
+			div.actions
+				input(type='submit', value='Save', class='btn primary')
+				button(type='reset', class='btn') Cancel

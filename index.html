@@ -195,6 +195,24 @@ Last Updated: 11/13/2013 ~ Goosii is a pre-revenue, business to business applica
       <li class="apple"><a href="https://itunes.apple.com/us/app/goosii/id739497014?mt=8"></a></li> <!--https://itunes.apple.com/us/app/tinder/id547702041?mt=8 -->
 			<!-- <li class="google"><a href="https://play.google.com/store/apps/details?id=com.tinder"></a></li> -->
     </ul>
+    <select id="companyAnalytics" onChange="window.document.location.href=this.options[this.selectedIndex].value;">
+<!-- 	  <option value="volvo">Volvo</option>
+	  <option value="saab">Saab</option>
+	  <option value="mercedes">Mercedes</option>
+	  <option value="audi">Audi</option> -->
+	</select>
+    <script>
+    	var allCompanies='';
+		var companyObj = $.getJSON('http://localhost:3000/analytics/getCompanies/?callback=?',function (data) {
+			// console.log(data);
+			for(var i = 0; i < data.length; i++){
+				allCompanies += "<option value='http://localhost/GoosiiWebsite/analytics.html?companyId=" + data[i] + "'>" + data[i] + "</option>";
+			}
+			$('#companyAnalytics').html(allCompanies);
+			console.log(allCompanies);
+		});
+
+    </script>
   </div>
   <div id="footer-copyright">&copy; Copyright Goosii 2013. All rights reserved.</div>
 </div>
@@ -259,12 +277,6 @@ $( document ).ready(function() {
 
 });	
 
-var companyObj = $.getJSON('http://localhost:3000/getComp/asdf?callback=?',function  (data) {
-			console.log(data);
-		});
 
-var testObject = {"name" : "blah"};
-
-var companyObj = $.getJSON('http://localhost:3000/insertIntoDb/' + encodeURIComponent(testObject) );
 
 </script>

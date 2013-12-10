@@ -52,8 +52,8 @@ app.post('/dailyUniquePart/addParticipant', function(req, res){
 });
 
 
-app.get('/analytics/display', function(req, res){
-	dailyUniquePart.find({}, function(err, doc){
+app.get('/analytics/getCompanies', function(req, res){
+	dailyUniquePart.find({}).distinct('company_id', function(err, doc){
 		var test = JSON.stringify(doc);
 		// res.send(test);        
 		res.jsonp(doc);
@@ -61,14 +61,44 @@ app.get('/analytics/display', function(req, res){
 	});
 });
 
-app.get('/analytics/getUniqueDates', function(req, res){
-	dailyUniquePart.find({}).sort({timestamp: -1}).distinct('timestamp', function(err, doc){
+
+app.get('/analytics/display/:companyId', function(req, res){
+	dailyUniquePart.find({company_id: req.params.companyId}, function(err, doc){
 		var test = JSON.stringify(doc);
 		// res.send(test);        
 		res.jsonp(doc);
 		// console.log(test);
 	});
 });
+
+// app.get('/analytics/display', function(req, res){
+// 	dailyUniquePart.find({}, function(err, doc){
+// 		var test = JSON.stringify(doc);
+// 		// res.send(test);        
+// 		res.jsonp(doc);
+// 		// console.log(test);
+// 	});
+// });
+
+
+app.get('/analytics/getUniqueDates/:companyId', function(req, res){
+	dailyUniquePart.find({company_id: req.params.companyId}).sort({timestamp: -1}).distinct('timestamp', function(err, doc){
+		var test = JSON.stringify(doc);
+		// res.send(test);        
+		res.jsonp(doc);
+		// console.log(test);
+	});
+});
+
+
+// app.get('/analytics/getUniqueDates', function(req, res){
+// 	dailyUniquePart.find({}).sort({timestamp: -1}).distinct('timestamp', function(err, doc){
+// 		var test = JSON.stringify(doc);
+// 		// res.send(test);        
+// 		res.jsonp(doc);
+// 		// console.log(test);
+// 	});
+// });
 
 app.listen(3000);
 console.log("server is running");

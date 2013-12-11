@@ -27,14 +27,16 @@
 	}
 	
 	#backgroundImg {
-		position:absolute;
+/*		position:absolute;
+		height:100%;*/
+		width:100%;
 	}
 	
 	#footer {
-	  height: 145px;
-	  background: white;
-	
-		bottom:0;
+		width: 100%;
+		background: white;
+		bottom: 0;
+		height:145px;
 /*		background-image: -webkit-gradient(
 			linear,
 			right bottom,
@@ -112,11 +114,10 @@
 	
 	#logoWrapper {
 		position:absolute;
-		width: 100%;
 		clear:both;
 /*		border: 1px solid yellow;*/
 		bottom:112px;
-		left:20%;
+		left:15%;
 /*		overflow:hidden;*/
 		
 	}
@@ -167,9 +168,8 @@
 <div id="content">
 	<img id="backgroundImg" border="0" src="./images/goosiiBackgroundImg.png"/>
 	
-	<div id="logoWrapper">
+<div id="logoWrapper">
 		<div id="first">
-			<!-- <img id="logo" border="0" src="./images/goosiiLogo.png"/> -->
 			<img id="iphoneImage" border="0" src="./images/iPhone5_2.png"/>
 		</div>
 		<div id="second">
@@ -182,16 +182,17 @@
   <div id="footer-links">
     <ul>
       <li><a href="./views/contact.html">Contact</a></li>
-      <!-- <li><a href="http://www.goosii.com/privacy/">Privacy</a></li> 
-Last Updated: 11/13/2013 ~ The Goosii app. relies on independent business locations for iPhone users to check in and take advantage of Goosii's unique application characteristics to better connect with that business' offers. If you are interested in being a beta test "user" of our application we invite you to get in touch. Also, if you own, or manage an independent business that is looking to verifiably increase sales we are looking for beta partners, please get in touch.
-			-->
-      <!-- <li><a href="http://www.goosii.com/terms/">Terms</a></li> 
+			<!--<li><a href="http://www.goosii.com/privacy/">Privacy</a></li> -->
+<!--Last Updated: 11/13/2013 ~ The Goosii app. relies on independent business locations for iPhone users to check in and take advantage of Goosii's unique application characteristics to better connect with that business' offers. If you are interested in being a beta test "user" of our application we invite you to get in touch. Also, if you own, or manage an independent business that is looking to verifiably increase sales we are looking for beta partners, please get in touch. -->
 
-Last Updated: 11/13/2013 ~ Goosii is a pre-revenue, business to business application focusing on independent business establishments and pending Apple's release to the app. store. If you own, or manage an independent business and are looking to verifiably increase sales at your establishment we are looking for beta partners, please get in touch.
-			-->
+			<!--<li><a href="http://www.goosii.com/terms/">Terms</a></li> -->
 
-      <li class="apple"><a href="https://itunes.apple.com/us/app/goosii/id739497014?mt=8"></a></li> <!--https://itunes.apple.com/us/app/tinder/id547702041?mt=8 -->
-			<!-- <li class="google"><a href="https://play.google.com/store/apps/details?id=com.tinder"></a></li> -->
+<!--Last Updated: 11/13/2013 ~ Goosii is a pre-revenue, business to business application focusing on independent business establishments and pending Apple's release to the app. store. If you own, or manage an independent business and are looking to verifiably increase sales at your establishment we are looking for beta partners, please get in touch.-->
+
+			<li><a href="http://blog.goosii.com/">Blog</a></li> 
+			
+      <li class="apple"><a href="https://itunes.apple.com/app/goosii/id739497014?mt=8"></a></li> <!--https://itunes.apple.com/us/app/tinder/id547702041?mt=8 -->
+			<li class="google"><a href="https://play.google.com/store/apps/details?id=com.tinder"></a></li>
     </ul>
   </div>
   <div id="footer-copyright">&copy; Copyright Goosii 2013. All rights reserved.</div>
@@ -201,8 +202,10 @@ Last Updated: 11/13/2013 ~ Goosii is a pre-revenue, business to business applica
 
 <script>
 $( document ).ready(function() {
-
-
+	$('body').height(window.innerHeight);
+	$('#content').height(window.innerHeight);	
+	$('#backgroundImg').height(window.innerHeight);
+		
 	var defaultWidth = function() {
 		var windowHeight = $(window).height();
 		var windowWidth = $(window).width();
@@ -214,6 +217,8 @@ $( document ).ready(function() {
 	
 		$('#backgroundImg').width($(window).width());
 		$('#backgroundImg').height($(window).height());
+		
+		$('#logoWrapper').width($(window).width());
 		// $('#footer').height(headerHeight);
 
 	};
@@ -245,14 +250,14 @@ $( document ).ready(function() {
 		}
 	}
 
-	$(window).resize(function(){
-		$('#backgroundImg').width($(window).width());
-		$('#backgroundImg').height($(window).height());	
-		$('#footer').width($(window).width());		
-	});
+	// $(window).resize(function(){
+	// 	$('#backgroundImg').width($(window).width());
+	// 	$('#backgroundImg').height($(window).height());	
+	// 	$('#footer').width($(window).width());		
+	// });
 
-	detectMobile();
-	defaultWidth();
+	// detectMobile();
+	// defaultWidth();
 });	
 
 

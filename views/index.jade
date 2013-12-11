@@ -1,0 +1,13 @@
+extends ./layout
+block content
+	h1 #{title}
+		div.navbar
+			div.navbar-inner
+				a(class='brand' href='#')|Title
+				ul.nav
+					li.active
+						a(href='#')|Home
+					li
+						a(href='/tasks/new')|Add User
+					li
+						a(href='#')|Link

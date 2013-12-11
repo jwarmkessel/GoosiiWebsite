@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Goosii</title>
+<!--<link href="style.css" rel="stylesheet" type="text/css" />-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> 
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="public/stylesheets/bootstrap-responsive.css">
+<link rel="stylesheet" type="text/css" href="public/stylesheets/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="public/stylesheets/style.css">
+</head>
+
+<body>
+<div id="content" class="container">
+	<form id="participantRegistration" action='http://localhost:3000/dailyUniquePart/addParticipant' method="post">
+		<fieldset>
+			<label for="company_id">Company Name:</label>
+			<input type="text" id="company_id" name="company_id"/><br>
+			<label for="timestamp">Timestamp</label>
+			<input type="date" id="timestamp" name="timestamp"/><br>
+			<label for="user_id">User</label>
+			<input type="text" id="user_id" name="user_id"/><br>
+			<input id="PRID"type="submit" name="submit" class="btn btn-primary"/>
+		</fieldset>
+	</form>
+	<script>
+		// $.getJSON( 
+		// 	'http://localhost:3000/dailyUniquePart/addParticipant', function(data) {
+		//   var items = [];
+
+		// });
+
+		// $.ajax({
+		//   dataType: "json",
+		//   url: 'http://localhost:3000/dailyUniquePart/addParticipant',
+		//   data: $('#participantRegistration').serialize,
+		//   success: function(data){
+		//   	alert('Data was sent');
+		//   },
+		// });
+	</script>
+</div>
+
+<div id="footer" style="position:absolute;"> 
+  <div id="footer-links">
+    <ul>
+      <li><a href="./views/contact.html">Contact</a></li>
+
+      <li class="apple"><a href="https://itunes.apple.com/us/app/goosii/id739497014?mt=8"></a></li> <!--https://itunes.apple.com/us/app/tinder/id547702041?mt=8 -->
+			<!-- <li class="google"><a href="https://play.google.com/store/apps/details?id=com.tinder"></a></li> -->
+    </ul>
+  </div>
+  <div id="footer-copyright">&copy; Copyright Goosii 2013. All rights reserved.</div>
+</div>
+</body>
+</html>
+
+<script>
+var companyObj = $.getJSON('http://localhost:3000/getComp/asdf?callback=?',function  (data) {
+			console.log(data);
+		});
+
+</script>

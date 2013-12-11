@@ -1,0 +1,376 @@
+<style>
+html,body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+
+#header {
+	background-color:#C63D0F;
+	color:white;	
+	height:255px;
+}
+
+.numberContainers {
+	margin-left:100px;
+	float:left;
+	color:#666666;
+	font-family: Arial;	
+}
+
+.container {
+	border: 3px solid #666666;
+}
+
+.numbers {
+		top: 10%;
+		left: 50%;
+		margin-top: 50px;
+		margin-left: 0px;
+		font-size: 85px;		
+}
+
+#checkins {
+	height: 175px;
+	width: 150px;
+	top: 10%;
+	left: 50%;
+	margin-top: 50px;
+	margin-left: 0px;
+	font-size: 85px;
+}
+
+#checkinsByEvent {
+/*	height:175px;*/
+	width:150px;
+	
+}
+
+#totalParticipantsByEvent {
+/*	margin-left:100px;*/
+	font-size:13px;
+/*	height:175px;*/
+	width:150px;
+}
+
+#totalParticipants {
+	height: 175px;
+	width: 150px;
+	top: 10%;
+	left: 50%;
+	margin-top: 50px;
+	margin-left: 0px;
+	font-size: 85px;
+}
+
+#totalValidatedCoupons {
+	height: 175px;
+	width: 150px;
+	top: 10%;
+	left: 50%;
+	margin-top: 50px;
+	margin-left: 0px;
+	font-size: 85px;
+}
+
+#totalValidatedCouponsByEvent {
+	font-size:13px;
+/*	height:175px;*/
+	width:150px;
+}
+</style>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>ANALYTIC PROTOTYPE 2</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Justin Warmkessel">
+
+	<!-- http://wijmo.com/downloads/ -->
+	<!--jQuery References-->
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js" type="text/javascript"></script>
+
+	<script src="Chart.js" type="text/javascript"></script>
+	<!--Theme-->
+	<link href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" type="text/css" />
+
+	<!--Wijmo Widgets CSS-->
+	<link href="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20132.15.min.css" rel="stylesheet" type="text/css" />
+
+	<!--Wijmo Widgets JavaScript-->
+	<script src="http://cdn.wijmo.com/jquery.wijmo-open.all.3.20132.15.min.js" type="text/javascript"></script>
+	<script src="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20132.15.min.js" type="text/javascript"></script>
+	<!-- Date: 2013-11-08 -->
+</head>
+<body>
+	<section id="header" style="font-family: Futura; font-size:3em;" > 
+		<img border="0" style="margin-top:10px; height:140px; width:200px; margin-left:5%; margin-top: 3%;" src="../images/Goosii_Final_Logo.png">Analytics</section>
+	<section>
+	<div class="numberContainers">
+		<div id="checkinsByEvent" class="container">
+			<div id="checkins" class="numbers">100</div>
+		</div>
+		<div id="totalParticipantsByEvent">Total New Participants in Event</div>
+	</div>
+	<div class="numberContainers">
+		<div id="totalParticipantsByEvent" class="container">
+			<div id="totalParticipants" class="numbers">100</div>
+		</div>
+		<div id="totalParticipantsByEvent">Total Participants</div>
+	</div>
+	<div class="numberContainers">
+		<div id="totalValidatedCouponsByEvent" class="container">
+			<div id="totalValidatedCoupons" class="numbers">100</div>
+		</div>
+		<div id="">Validated Coupons</div>
+	</div>
+	
+	<!-- <div id="wijlinechart" style="clear:both;"></div> -->
+	
+	
+	<section style="clear:both;">
+		<canvas id="myChart" width="1000" height="500" style="width:100%; height:500px; clear:both;"></canvas>
+	</section>
+	
+</body>
+</html>
+
+<script type="text/javascript">
+
+
+	$(document).ready(function(){
+
+		$("#wijlinechart").wijlinechart({
+			showChartLabels:false,hint:{content:function(){return this.y;}},
+							 header:{text:"Unique Participants Per Day"},
+					 seriesList:[
+												{
+													label:"Pizza California",
+													legendEntry:true,
+													data:{
+																x:[new Date("7/1/2005"),new Date("7/2/2005"),new Date("7/3/2005"),new Date("7/4/2005"),new Date("7/5/2005"),new Date("7/6/2005"),new Date("7/7/2005")],
+																y:[1,5,10,5,5,5,5]
+															},
+													markers:{visible:true,type:"circle"}
+												},
+												
+												// {label:"Hot Spot Cafe",
+												// legendEntry:true,
+												// data:{
+												// 				x:[new Date("7/1/2005"),new Date("8/1/2005"),new Date("10/1/2005"),new Date("12/1/2005"),new Date("3/1/2006"),new Date("7/1/2006"),new Date("12/1/2006"),new Date("1/1/2008")],
+												// 				y:[3,4,5,6,7,8,9,10]},
+												// markers:{visible:true,type:"circle"}
+												// },
+												
+												// {label:"Goosii",
+												// legendEntry:true,
+												// data:{
+												// 				x:[new Date("7/1/2005"),new Date("8/1/2005"),new Date("10/1/2005"),new Date("3/1/2006"),new Date("9/1/2006"),new Date("12/1/2006"),new Date("1/1/2008")],
+												// 				y:[15,15,17,100,200,455,600]},
+												// markers:{visible:true,type:"circle"}
+												// }
+											]
+		  });
+												
+		$(window).resize(function(){$("#wijlinechart").wijlinechart("redraw");
+		
+		});		
+	});
+		
+	$("#checkinsByEvent").click(function() {
+		$("#wijlinechart").wijlinechart("redraw");
+	});
+	$("#checkins").click(function() {
+		$("#wijlinechart").wijlinechart("redraw");
+	});
+	$("#totalParticipantsByEvent").click(function() {
+		$("#wijlinechart").wijlinechart("redraw");
+	});
+	
+	
+	$(document).ready(function(){
+
+
+		$.extend({
+		  getUrlVars: function(){
+		    var vars = [], hash;
+		    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+		    for(var i = 0; i < hashes.length; i++)
+		    {
+		      hash = hashes[i].split('=');
+		      vars.push(hash[0]);
+		      vars[hash[0]] = hash[1];
+		    }
+		    return vars;
+		  },
+		  getUrlVar: function(name){
+		    return $.getUrlVars()[name];
+		  }
+		});
+
+		var companyId = $.getUrlVar('companyId');
+		alert(companyId);
+		var dates = new Array();
+		var dateObjects = new Array();
+		var uniqueParticipants = new Array();
+
+		var companyObj = $.getJSON('http://localhost:3000/analytics/getUniqueDates/' + companyId + '?callback=?',function  (data) {
+			data.sort();
+			for(var i = 0; i < data.length; i++){
+				// console.log(Object.keys(data[i]));
+				// console.log(data[i]);
+				// console.log(data[i]);
+				dates[i] = data[i];
+				dateObjects[i] = new Date(data[i]);
+				uniqueParticipants[i] = 0 ;
+				console.log(uniqueParticipants[i] + 'UP');
+			}
+			console.log('dates1: ' + dateObjects.length +"\n\n");
+
+			var companyObj = $.getJSON('http://localhost:3000/analytics/display/' + companyId + '?callback=?',function  (data) {
+			console.log(data);
+
+			for(var i=0; i<dates.length; i++){
+				for(var j=0; j<data.length; j++){
+					// console.log(data[j].timestamp + ' ' + dates[i] + "\n\n");
+					console.log(data[j].timestamp == dates[i]);
+					if(data[j].timestamp == dates[i]){
+						uniqueParticipants[i]++;
+					}
+				}
+				console.log('uniqueParticipants1: ' + uniqueParticipants.length +"\n\n");
+			}
+			// console.log(uniqueParticipants[0]);
+			console.log(uniqueParticipants);
+		
+		
+
+
+				console.log('dates---: ' + dateObjects.length +"\n\n");
+				console.log('unique----Participants: ' + uniqueParticipants.length +"\n\n");
+
+
+				// Get the context of the canvas element we want to select
+				var data = {
+					labels : dateObjects,
+					datasets : [
+						{
+							fillColor : "rgba(220,220,220,0.5)",
+							strokeColor : "rgba(220,220,220,1)",
+							pointColor : "rgba(220,220,220,1)",
+							pointStrokeColor : "#fff",
+							data : uniqueParticipants
+						},
+					]
+				}
+
+
+				//Get the context of the canvas element we want to select
+				var ctx = document.getElementById("myChart").getContext("2d");
+				//	var myNewChart = new Chart(ctx).PolarArea(data);
+				var options = {
+
+					//Boolean - If we show the scale above the chart data			
+					scaleOverlay : false,
+
+					//Boolean - If we want to override with a hard coded scale
+					scaleOverride : false,
+
+					//** Required if scaleOverride is true **
+					//Number - The number of steps in a hard coded scale
+					scaleSteps : null,
+					//Number - The value jump in the hard coded scale
+					scaleStepWidth : null,
+					//Number - The scale starting value
+					scaleStartValue : null,
+
+					//String - Colour of the scale line	
+					scaleLineColor : "rgba(0,0,0,.1)",
+
+					//Number - Pixel width of the scale line	
+					scaleLineWidth : 1,
+
+					//Boolean - Whether to show labels on the scale	
+					scaleShowLabels : true,
+
+					//Interpolated JS string - can access value
+					scaleLabel : "<%=value%>",
+
+					//String - Scale label font declaration for the scale label
+					scaleFontFamily : "'Arial'",
+
+					//Number - Scale label font size in pixels	
+					scaleFontSize : 12,
+
+					//String - Scale label font weight style	
+					scaleFontStyle : "normal",
+
+					//String - Scale label font colour	
+					scaleFontColor : "#666",	
+
+					///Boolean - Whether grid lines are shown across the chart
+					scaleShowGridLines : true,
+
+					//String - Colour of the grid lines
+					scaleGridLineColor : "rgba(0,0,0,.05)",
+
+					//Number - Width of the grid lines
+					scaleGridLineWidth : 1,	
+
+					//Boolean - Whether the line is curved between points
+					bezierCurve : true,
+
+					//Boolean - Whether to show a dot for each point
+					pointDot : true,
+
+					//Number - Radius of each point dot in pixels
+					pointDotRadius : 3,
+
+					//Number - Pixel width of point dot stroke
+					pointDotStrokeWidth : 1,
+
+					//Boolean - Whether to show a stroke for datasets
+					datasetStroke : true,
+
+					//Number - Pixel width of dataset stroke
+					datasetStrokeWidth : 2,
+
+					//Boolean - Whether to fill the dataset with a colour
+					datasetFill : true,
+
+					//Boolean - Whether to animate the chart
+					animation : true,
+
+					//Number - Number of animation steps
+					animationSteps : 60,
+
+					//String - Animation easing effect
+					animationEasing : "easeOutQuart",
+
+					//Function - Fires when the animation is complete
+					onAnimationComplete : null
+
+				}
+				new Chart(ctx).Line(data);
+
+
+			});
+		});
+	});
+		
+</script>
+												
+												
+												
+												
+												
+												
+												
+												

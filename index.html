@@ -176,11 +176,13 @@
 			<div id="iphoneTitle">The Independent Business Application</div>		
 		</div>
 	</div>
+
 </div>
 
 <div id="footer" style="position:absolute;"> 
   <div id="footer-links">
     <ul>
+      <li><a href="addParticipant.html">Add Participants</a></li>
       <li><a href="./views/contact.html">Contact</a></li>
 			<!--<li><a href="http://www.goosii.com/privacy/">Privacy</a></li> -->
 <!--Last Updated: 11/13/2013 ~ The Goosii app. relies on independent business locations for iPhone users to check in and take advantage of Goosii's unique application characteristics to better connect with that business' offers. If you are interested in being a beta test "user" of our application we invite you to get in touch. Also, if you own, or manage an independent business that is looking to verifiably increase sales we are looking for beta partners, please get in touch. -->
@@ -194,6 +196,24 @@
       <li class="apple"><a href="https://itunes.apple.com/app/goosii/id739497014?mt=8"></a></li> <!--https://itunes.apple.com/us/app/tinder/id547702041?mt=8 -->
 			<li class="google"><a href="https://play.google.com/store/apps/details?id=com.tinder"></a></li>
     </ul>
+    <select id="companyAnalytics" onChange="window.document.location.href=this.options[this.selectedIndex].value;">
+<!-- 	  <option value="volvo">Volvo</option>
+	  <option value="saab">Saab</option>
+	  <option value="mercedes">Mercedes</option>
+	  <option value="audi">Audi</option> -->
+	</select>
+    <script>
+    	var allCompanies='';
+		var companyObj = $.getJSON('http://localhost:3000/analytics/getCompanies/?callback=?',function (data) {
+			// console.log(data);
+			for(var i = 0; i < data.length; i++){
+				allCompanies += "<option value='http://localhost/GoosiiWebsite/analytics.html?companyId=" + data[i] + "'>" + data[i] + "</option>";
+			}
+			$('#companyAnalytics').html(allCompanies);
+			console.log(allCompanies);
+		});
+
+    </script>
   </div>
   <div id="footer-copyright">&copy; Copyright Goosii 2013. All rights reserved.</div>
 </div>
@@ -249,15 +269,6 @@ $( document ).ready(function() {
 			console.log("desktop");
 		}
 	}
-
-	// $(window).resize(function(){
-	// 	$('#backgroundImg').width($(window).width());
-	// 	$('#backgroundImg').height($(window).height());	
-	// 	$('#footer').width($(window).width());		
-	// });
-
-	// detectMobile();
-	// defaultWidth();
 });	
 
 

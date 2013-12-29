@@ -216,17 +216,15 @@ html,body {
 		});
 
 		var companyId = $.getUrlVar('companyId');
-		alert(companyId);
+		// Setting up the storage arrays to assemble the graphs
 		var dates = new Array();
 		var dateObjects = new Array();
 		var uniqueParticipants = new Array();
 
 		var companyObj = $.getJSON('http://localhost:3000/analytics/getUniqueDates/' + companyId + '?callback=?',function  (data) {
 			data.sort();
+			// Pull back all UNIQUE dates and create a Date object for each. Set up a parallel array to hold the unique participants per date.
 			for(var i = 0; i < data.length; i++){
-				// console.log(Object.keys(data[i]));
-				// console.log(data[i]);
-				// console.log(data[i]);
 				dates[i] = data[i];
 				dateObjects[i] = new Date(data[i]);
 				uniqueParticipants[i] = 0 ;
@@ -235,29 +233,26 @@ html,body {
 			console.log('dates1: ' + dateObjects.length +"\n\n");
 
 			var companyObj = $.getJSON('http://localhost:3000/analytics/display/' + companyId + '?callback=?',function  (data) {
-			console.log(data);
+				console.log(data);
 
-			for(var i=0; i<dates.length; i++){
-				for(var j=0; j<data.length; j++){
-					// console.log(data[j].timestamp + ' ' + dates[i] + "\n\n");
-					console.log(data[j].timestamp == dates[i]);
-					if(data[j].timestamp == dates[i]){
-						uniqueParticipants[i]++;
+				// Tallies up the number of unique participants per day
+				for(var i=0; i<dates.length; i++){
+					for(var j=0; j<data.length; j++){
+						// console.log(data[j].timestamp + ' ' + dates[i] + "\n\n");
+						console.log(data[j].timestamp == dates[i]);
+						if(data[j].timestamp == dates[i]){
+							uniqueParticipants[i]++;
+						}
 					}
+					console.log('uniqueParticipants1: ' + uniqueParticipants.length +"\n\n");
 				}
-				console.log('uniqueParticipants1: ' + uniqueParticipants.length +"\n\n");
-			}
-			// console.log(uniqueParticipants[0]);
-			console.log(uniqueParticipants);
-		
-		
-
+				console.log(uniqueParticipants);
 
 				console.log('dates---: ' + dateObjects.length +"\n\n");
 				console.log('unique----Participants: ' + uniqueParticipants.length +"\n\n");
 
 
-				// Get the context of the canvas element we want to select
+				// Apply the dateObjects and number of unique participants arrays to set up the graph
 				var data = {
 					labels : dateObjects,
 					datasets : [
@@ -359,8 +354,6 @@ html,body {
 
 				}
 				new Chart(ctx).Line(data);
-
-
 			});
 		});
 	});

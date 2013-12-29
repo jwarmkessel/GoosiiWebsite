@@ -216,6 +216,7 @@ html,body {
 		});
 
 		var companyId = $.getUrlVar('companyId');
+		console.log(companyId);
 		// Setting up the storage arrays to assemble the graphs
 		var dates = new Array();
 		var dateObjects = new Array();
@@ -233,7 +234,7 @@ html,body {
 			console.log('dates1: ' + dateObjects.length +"\n\n");
 
 			var companyObj = $.getJSON('http://localhost:3000/analytics/display/' + companyId + '?callback=?',function  (data) {
-				console.log(data);
+				console.log(data + '---------------');
 
 				// Tallies up the number of unique participants per day
 				for(var i=0; i<dates.length; i++){
@@ -248,8 +249,8 @@ html,body {
 				}
 				console.log(uniqueParticipants);
 
-				console.log('dates---: ' + dateObjects.length +"\n\n");
-				console.log('unique----Participants: ' + uniqueParticipants.length +"\n\n");
+				console.log('dates---: ' + dateObjects.length +"\n\n" + dateObjects);
+				console.log('unique----Participants: ' + uniqueParticipants.length +"\n\n"+uniqueParticipants);
 
 
 				// Apply the dateObjects and number of unique participants arrays to set up the graph
@@ -276,15 +277,15 @@ html,body {
 					scaleOverlay : false,
 
 					//Boolean - If we want to override with a hard coded scale
-					scaleOverride : false,
+					scaleOverride : true,
 
 					//** Required if scaleOverride is true **
 					//Number - The number of steps in a hard coded scale
-					scaleSteps : null,
+					scaleSteps : 15,
 					//Number - The value jump in the hard coded scale
-					scaleStepWidth : null,
+					scaleStepWidth : 1.0,
 					//Number - The scale starting value
-					scaleStartValue : null,
+					scaleStartValue : 0.0,
 
 					//String - Colour of the scale line	
 					scaleLineColor : "rgba(0,0,0,.1)",
@@ -353,7 +354,7 @@ html,body {
 					onAnimationComplete : null
 
 				}
-				new Chart(ctx).Line(data);
+				new Chart(ctx).Line(data, options);
 			});
 		});
 	});

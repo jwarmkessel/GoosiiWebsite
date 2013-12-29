@@ -197,20 +197,16 @@
 			<li class="google"><a href="https://play.google.com/store/apps/details?id=com.tinder"></a></li>
     </ul>
     <select id="companyAnalytics" onChange="window.document.location.href=this.options[this.selectedIndex].value;">
-<!-- 	  <option value="volvo">Volvo</option>
-	  <option value="saab">Saab</option>
-	  <option value="mercedes">Mercedes</option>
-	  <option value="audi">Audi</option> -->
 	</select>
     <script>
+    	// Gather company ids and names. Assemble the drop down selection to display company analytics
     	var allCompanies='';
+    	allCompanies += "<option value=''>Please select a company:</option>";
 		var companyObj = $.getJSON('http://localhost:3000/analytics/getCompanies/?callback=?',function (data) {
-			// console.log(data);
 			for(var i = 0; i < data.length; i++){
-				allCompanies += "<option value='http://localhost/GoosiiWebsite/analytics.html?companyId=" + data[i] + "'>" + data[i] + "</option>";
+				allCompanies += "<option value='http://localhost/GoosiiWebsite/analytics.html?companyId=" + data[i]._id + "'>" + data[i].name + "</option>";
 			}
 			$('#companyAnalytics').html(allCompanies);
-			console.log(allCompanies);
 		});
 
     </script>

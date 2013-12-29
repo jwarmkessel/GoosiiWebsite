@@ -25,6 +25,15 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
 // Collections 
+
+var firstTimeCheckIns = new Schema({
+	companyId: { type: String },
+	timestamp: { type: Number },
+	userId: { type: String },
+});
+var firstTimeCheckIns = mongoose.model('firstTimeCheckIn', firstTimeCheckIns);
+
+
 var dailyUniquePart = new Schema({
 	company_id: { type: String, required: true, trim: true },
 	timestamp: { type: Date, required: true, trim: true },
@@ -52,11 +61,10 @@ var user = new Schema({
 });
 var user = mongoose.model('user', user);
 
-var company = new Schema({
+var companies = new Schema({
 	address: { type: String },
-	contest: { votes: Date, jobId: String, mobileBackgroundImage: String, participationPost: String, password: String, post: String, prize: String, prizeImg: String, startDate: Date, website: String }, 
+	contest: { votes: Date, jobId: String, mobileBackgroundImage: String, participationPost: String, password: String, post: String, prize: String, prizeImg: String, startDate: Date, endDate: Date, website: String }, 
 	coupon: { total: Number },
-	endDate: { type: Date },
 	latitude: { type: Number },
 	loc: { latitude: Number, longitude: Number },
 	longitude: { type: Number },
@@ -65,10 +73,9 @@ var company = new Schema({
 	participants: [{ userId: String, pushIdentifier: String}],
 	prize: { type: String },
 	prizeImg: { type: String },
-	startDate: { type: Date },
 	telephone: { type: Number },
 });
-var company = mongoose.model('company', company);
+var companies = mongoose.model('companies', companies);
 
 // End Collections
 
@@ -85,13 +92,11 @@ app.post('/dailyUniquePart/addParticipant', function(req, res){
 			console.log(err);
 		}
 	});
-	console.log("I'm Running");
-	// res.jsonp("I'm running!");
 });
 
 
 app.get('/analytics/getCompanies', function(req, res){
-	dailyUniquePart.find({}).distinct('company_id', function(err, doc){
+	companies.find({}, '_id name', function(err, doc){
 		var test = JSON.stringify(doc);
 		// res.send(test);        
 		res.jsonp(doc);
@@ -101,7 +106,7 @@ app.get('/analytics/getCompanies', function(req, res){
 
 
 app.get('/analytics/display/:companyId', function(req, res){
-	dailyUniquePart.find({company_id: req.params.companyId}, function(err, doc){
+	firstTimeCheckIns.find({companyId: req.params.companyId}, function(err, doc){
 		var test = JSON.stringify(doc);
 		// res.send(test);        
 		res.jsonp(doc);
@@ -109,26 +114,27 @@ app.get('/analytics/display/:companyId', function(req, res){
 	});
 });
 
-// app.get('/analytics/display', function(req, res){
-// 	dailyUniquePart.find({}, function(err, doc){
-// 		var test = JSON.stringify(doc);
-// 		// res.send(test);        
-// 		res.jsonp(doc);
-// 		// console.log(test);
-// 	});
-// });
 
 // We only want information from the past seven days. 
 var sevenDaysAgo = new Date();
-sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 40);
 sevenDaysAgo.setHours(0);
 sevenDaysAgo.setMinutes(0);
 sevenDaysAgo.setSeconds(0);
 sevenDaysAgo.setMilliseconds(0);
 
 app.get('/analytics/getUniqueDates/:companyId', function(req, res){
-	dailyUniquePart.find({company_id: req.params.companyId}).where('timestamp').gte(sevenDaysAgo.toISOString()).sort({timestamp: -1}).distinct('timestamp', function(err, doc){
-		
+	// console.log(Date.UTC(sevenDaysAgo.getFullYear(),sevenDaysAgo.getMonth(),sevenDaysAgo.getDate()));
+	sevenDaysAgo_milli = Date.UTC(sevenDaysAgo.getFullYear(),sevenDaysAgo.getMonth(),sevenDaysAgo.getDate());
+	// console.log(typeof sevenDaysAgo_milli);
+	console.log(req.params.companyId + ' - ' + sevenDaysAgo_milli);
+	// firstTimeCheckIns.find({}, function(err, doc){
+	// 	console.log(doc);
+	// 	var test = JSON.stringify(doc);
+	// 	res.jsonp(doc);
+	// });
+	firstTimeCheckIns.find({companyId: req.params.companyId}).where('timestamp').gte(sevenDaysAgo_milli).sort({timestamp: -1}).distinct('timestamp', function(err, doc){
+		console.log(doc);
 		var test = JSON.stringify(doc);
 		res.jsonp(doc);
 	});

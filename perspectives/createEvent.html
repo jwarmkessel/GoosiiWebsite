@@ -445,13 +445,17 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 		         date.getFullYear()
 		        ,date.getMonth()+1
 		        ,date.getDate()
-		        // ,date.getHours()
-		        // ,date.getMinutes()
-		        // ,date.getSeconds()
+		        ,date.getHours()
+		        ,date.getMinutes()
+		        ,date.getSeconds()
 		     ];
-		return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + '  ' + date.getHours() + ':' + date.getMinutes();
-		alert(datevalues); //=> [2011, 3, 25, 23, 0, 0]
+		return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+		//alert(datevalues); //=> [2011, 3, 25, 23, 0, 0]
 	}
+	
+	var theCurrentTime = getCurrentUtcTimestamp();
+	var theCurrentTimeString = getHumanReadableUtcTime(theCurrentTime);
+	console.log("Checking the current time " + theCurrentTimeString);
 	
 	var popUpMenu = function(element) {
 		$('#popUpMenuTitle').html($(element).parent().parent().text());

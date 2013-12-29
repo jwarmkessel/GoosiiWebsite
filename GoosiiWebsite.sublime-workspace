@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"first",
+				"firstTimeCheckIns"
+			],
+			[
+				"seven",
+				"sevenDaysAgo"
+			],
+			[
+				"seve",
+				"sevenDaysAgo"
+			],
+			[
+				"time",
+				"timestamp"
+			],
+			[
 				"sanitize",
 				"sanitizeAttributes"
 			],
@@ -159,6 +175,73 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/Users/marscheung/GoosiiServer-master/src/usersModule.js",
+			"settings":
+			{
+				"buffer_size": 9593,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "prototypeApp.js",
+			"settings":
+			{
+				"buffer_size": 7226,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "{\n	\"_id\" : ObjectId(\"5233805ec22ccd54d6fd2cff\"),\n	\"address\" : \"1708 Oakland Rd  San Jose, CA 95131\",\n	\"contest\" : {\n		\"endDate\" : 1387324070653,\n		\"jobId\" : \"75\",\n		\"mobileBackgroundImage\" : null,\n		\"participationPost\" : \"Trying to win a free pizza from Pizza California! Yum!!\",\n		\"password\" : \"1234\",\n		\"post\" : \"Trying to win a free pizza from Pizza California! Yum!!\",\n		\"prize\" : \"One Large Pizza!\",\n		\"prizeImg\" : null,\n		\"startDate\" : 1387237670653,\n		\"website\" : \"http://pizzacalifornia.goosii.com/\"\n	},\n	\"coupon\" : {\n		\"total\" : 11\n	},\n	\"endDate\" : \"\",\n	\"entryList\" : [\n		\"52af922b16a8c7f67800000b\",\n		\"52af922b16a8c7f67800000b\",\n		\"52af922b16a8c7f67800000b\",\n		\"52af922b16a8c7f67800000b\"\n	],\n	\"latitude\" : 36.350208,\n	\"loc\" : [\n		-122.034859,\n		36.350208\n	],\n	\"location\" : {\n		\"type\" : \"Point\",\n		\"coordinates\" : [\n			-121.89409,\n			37.383613\n		]\n	},\n	\"longitude\" : -122.034859,\n	\"name\" : \"Pizza California\",\n	\"newsURL\" : \"http://pizzaCalifornia.goosii.com/newsFeed.html\",\n	\"participants\" : [\n		{\n			\"userId\" : \"52549ce0c78e23e613000001\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52718d7de752a9205d000001\",\n			\"pushIdentifier\" : \"26cfbde486e222fa76a7150ab67b0504c4ff430829c0921b42502fa9c6e19504\"\n		},\n		{\n			\"userId\" : \"5296b8f0f961d70f67000001\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52a5689839f6b2f02500001e\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52a56d3139f6b2f025000020\",\n			\"pushIdentifier\" : \"empty\"\n		},\n		{\n			\"userId\" : \"52437137f1cdca9316000001\",\n			\"pushIdentifier\" : \"empty\"\n		},\n		{\n			\"userId\" : \"52a78b7a04ff8d1e4b000002\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52a79cf904ff8d1e4b000007\",\n			\"pushIdentifier\" : \"empty\"\n		},\n		{\n			\"userId\" : \"52a7d28ee2edd5ff10000003\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52a8f68978dea0ad76000003\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52a8f6f516a8c7f678000001\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52aa57f316a8c7f678000004\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52af922b16a8c7f67800000b\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		}\n	],\n	\"prize\" : \"\",\n	\"prizeImg\" : \"\",\n	\"startDate\" : \"\",\n	\"telephone\" : \"4085737373\"\n}",
+			"settings":
+			{
+				"buffer_size": 2730,
+				"line_ending": "Unix",
+				"name": "{"
+			}
+		},
+		{
+			"file": "analytics.html",
+			"settings":
+			{
+				"buffer_size": 10248,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 7587,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "addParticipant.html",
+			"settings":
+			{
+				"buffer_size": 2351,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "db.companies.insert({\n	\"_id\" : ObjectId(\"5233805ec22ccd54d6fd2cff\"),\n	\"address\" : \"1708 Oakland Rd  San Jose, CA 95131\",\n	\"contest\" : {\n		\"endDate\" : 1387324070653,\n		\"jobId\" : \"75\",\n		\"mobileBackgroundImage\" : null,\n		\"participationPost\" : \"Trying to win a free pizza from Pizza California! Yum!!\",\n		\"password\" : \"1234\",\n		\"post\" : \"Trying to win a free pizza from Pizza California! Yum!!\",\n		\"prize\" : \"One Large Pizza!\",\n		\"prizeImg\" : null,\n		\"startDate\" : 1387237670653,\n		\"website\" : \"http://pizzacalifornia.goosii.com/\"\n	},\n	\"coupon\" : {\n		\"total\" : 11\n	},\n	\"endDate\" : \"\",\n	\"entryList\" : [\n		\"52af922b16a8c7f67800000b\",\n		\"52af922b16a8c7f67800000b\",\n		\"52af922b16a8c7f67800000b\",\n		\"52af922b16a8c7f67800000b\"\n	],\n	\"latitude\" : 36.350208,\n	\"loc\" : [\n		-122.034859,\n		36.350208\n	],\n	\"location\" : {\n		\"type\" : \"Point\",\n		\"coordinates\" : [\n			-121.89409,\n			37.383613\n		]\n	},\n	\"longitude\" : -122.034859,\n	\"name\" : \"Pizza California\",\n	\"newsURL\" : \"http://pizzaCalifornia.goosii.com/newsFeed.html\",\n	\"participants\" : [\n		{\n			\"userId\" : \"52549ce0c78e23e613000001\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52718d7de752a9205d000001\",\n			\"pushIdentifier\" : \"26cfbde486e222fa76a7150ab67b0504c4ff430829c0921b42502fa9c6e19504\"\n		},\n		{\n			\"userId\" : \"5296b8f0f961d70f67000001\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52a5689839f6b2f02500001e\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52a56d3139f6b2f025000020\",\n			\"pushIdentifier\" : \"empty\"\n		},\n		{\n			\"userId\" : \"52437137f1cdca9316000001\",\n			\"pushIdentifier\" : \"empty\"\n		},\n		{\n			\"userId\" : \"52a78b7a04ff8d1e4b000002\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52a79cf904ff8d1e4b000007\",\n			\"pushIdentifier\" : \"empty\"\n		},\n		{\n			\"userId\" : \"52a7d28ee2edd5ff10000003\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52a8f68978dea0ad76000003\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52a8f6f516a8c7f678000001\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52aa57f316a8c7f678000004\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		},\n		{\n			\"userId\" : \"52af922b16a8c7f67800000b\",\n			\"pushIdentifier\" : \"6ebf5909fb9fa9a451ab685820896c475a62fb7b8410119926f5783f38b9bb57\"\n		}\n	],\n	\"prize\" : \"\",\n	\"prizeImg\" : \"\",\n	\"startDate\" : \"\",\n	\"telephone\" : \"4085737373\"\n});",
+			"settings":
+			{
+				"buffer_size": 2752,
+				"line_ending": "Unix",
+				"name": "db.companies.insert({"
+			}
+		},
+		{
+			"contents": "db.firsttimecheckins.insert(\n{ \"_id\" : ObjectId(\"52aff4a0277f3219cd06eb05\"), \"companyId\" : \"52785a29e97c2e1e62000001\", \"userId\" : \"52a79cf904ff8d1e4b000007\", \"timestamp\" : 1386716765138 })\n{ \"_id\" : ObjectId(\"52aff4fe277f3219cd06eb06\"), \"companyId\" : \"52019889f868cadd76000002\", \"userId\" : \"52a79cf904ff8d1e4b000007\", \"timestamp\" : 1386716785268 }\n{ \"_id\" : ObjectId(\"52aff4fe277f3219cd06eb07\"), \"companyId\" : \"51eb05296f3999f315000002\", \"userId\" : \"52a79cf904ff8d1e4b000007\", \"timestamp\" : 1386716791980 }\n{ \"_id\" : ObjectId(\"52aff5d9277f3219cd06eb08\"), \"companyId\" : \"52785a29e97c2e1e62000001\", \"userId\" : \"52437137f1cdca9316000001\", \"timestamp\" : 1386718321232 }\n{ \"_id\" : ObjectId(\"52aff5d9277f3219cd06eb09\"), \"companyId\" : \"52785a29e97c2e1e62000001\", \"userId\" : \"52a56d3139f6b2f025000020\", \"timestamp\" : 1386718443793 }\n{ \"_id\" : ObjectId(\"52aff5d9277f3219cd06eb0a\"), \"companyId\" : \"52019889f868cadd76000002\", \"userId\" : \"52a56d3139f6b2f025000020\", \"timestamp\" : 1386718458728 }\n{ \"_id\" : ObjectId(\"52aff5d9277f3219cd06eb0b\"), \"companyId\" : \"5233805ec22ccd54d6fd2cff\", \"userId\" : \"52a7d28ee2edd5ff10000003\", \"timestamp\" : 1386735558506 }\n{ \"_id\" : ObjectId(\"52aff5d9277f3219cd06eb0c\"), \"companyId\" : \"5233805ec22ccd54d6fd2cff\", \"userId\" : \"52a8f68978dea0ad76000003\", \"timestamp\" : 1386804878027 }\n{ \"_id\" : ObjectId(\"52aff5d9277f3219cd06eb0d\"), \"companyId\" : \"5233805ec22ccd54d6fd2cff\", \"userId\" : \"52a8f6f516a8c7f678000001\", \"timestamp\" : 1386810127434 }});",
+			"settings":
+			{
+				"buffer_size": 1463,
+				"line_ending": "Unix",
+				"name": "db.firsttimecheckins.insert("
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -252,8 +335,27 @@
 	},
 	"file_history":
 	[
-		"/Users/marscheung/connect_to_mongo/app.js",
+		"/Users/marscheung/GoosiiServer-master/src/companiesModule.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/uploadCategory.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/routes/user.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/routes/index.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/index.html",
+		"/Users/marscheung/GoosiiServer/src/companiesModule.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/prototypeApp.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/analytics.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/views/dailyUniquePart/new.jade",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/showAnalytics.html",
+		"/Users/marscheung/connect_to_mongo/app.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/GitTutorial/analytics.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/views/layout.jade",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/views/index.jade",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/views/index.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/views/dailyUniquePart/index.jade",
+		"/Users/marscheung/connect_to_mongo/views/tasks/new.jade",
+		"/Users/marscheung/express_example/app.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/views/tasks/index.jade",
+		"/Users/marscheung/connect_to_mongo/views/layout.jade",
+		"/Applications/XAMPP/xamppfiles/htdocs/GoosiiWebsite/views/tasks/new.jade",
 		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/css/bootstrap.css",
 		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/css/bootstrap.min.css",
 		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/bootstrap/css/bootstrap.css",
@@ -282,7 +384,6 @@
 		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/uploadRole.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/editManual.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/editCategory.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/uploadCategory.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/editTopic.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/editRole.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/TMLibrary.sublime-workspace",
@@ -361,25 +462,7 @@
 		"/Applications/XAMPP/xamppfiles/phpmyadmin/config.default_ORIGINAL.php",
 		"/Applications/XAMPP/xamppfiles/phpmyadmin/libraries/config.default.php",
 		"/Applications/XAMPP/xamppfiles/phpmyadmin/libraries/common.inc.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/Post.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/sampleClass.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/userDelete.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/clubDelete.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/videoNotesAnnotator.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/uploadNotes.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/noteALE.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/videoAppendNotes.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/noteListing.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/categoryAffiliatedSpeechListing2.html",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/topicListing.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/datesAndArrays.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/lpmjc.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/constants.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/manualListing.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/userRoleListing.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/video.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/CodeIgniter/Sportz/index.html",
-		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/manualALE.php"
+		"/Applications/XAMPP/xamppfiles/htdocs/ToastmasterLibrary/includes/Post.php"
 	],
 	"find":
 	{
@@ -398,6 +481,46 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"find",
+			"firstTimeCheckIns",
+			"find({}",
+			".find(",
+			"firstTimeCheckIns",
+			"sevenDaysAgo_milli",
+			"sevenDaysAgo",
+			"companies",
+			"company",
+			"\"_id\" : ObjectId(",
+			"d",
+			"data",
+			"dailyUniquePart",
+			"user",
+			"dailyUniquePart",
+			"created",
+			"dailyUniquePart",
+			"new Schema",
+			"&",
+			"test&",
+			":",
+			"display",
+			"/display",
+			"data",
+			"find",
+			"ind",
+			"alert",
+			"hi",
+			"/public",
+			"a href",
+			"obect",
+			"+ ",
+			"body.",
+			"task",
+			"Task",
+			"../public/stylesheets/",
+			"..",
+			"public",
+			".",
+			"express",
 			"btn-warning",
 			"topicSubmitButton",
 			"vidId",
@@ -485,47 +608,7 @@
 			"</p>",
 			"<p>",
 			"clubPasswordVerification",
-			"PasswordVerification",
-			"clubPassword",
-			"uploadUserForm_club",
-			"clubPassword",
-			"passwordConfirmation",
-			"club",
-			"role",
-			"email",
-			"hashed_password",
-			"last_name",
-			"first_name",
-			"username",
-			"\"#registerErrorMessages\"",
-			"submitUserRoleEditData",
-			"registerErrorMessages",
-			"footer",
-			"editFormData",
-			"editClubForm_",
-			"editClubsForm",
-			"editClubForm",
-			"#form[id=",
-			"#form[id=\"uploadClubsF",
-			"'form[id=\"uploadClubsForm\"] #uploadClubsForm_address'",
-			"</p>",
-			"<p>",
-			"</br>",
-			"existingRoles",
-			"uploadClubsForm",
-			"password",
-			"zip",
-			"state",
-			"city",
-			"address",
-			"name",
-			"</p>",
-			"<p>",
-			"club",
-			"uploadClubs_existingClubs",
-			"zip",
-			"city",
-			"uploadClubsForm_city"
+			"PasswordVerification"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -551,13 +634,231 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/Users/marscheung/GoosiiServer-master/src/usersModule.js",
+					"settings":
+					{
+						"buffer_size": 9593,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								32,
+								32
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 19.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "prototypeApp.js",
+					"settings":
+					{
+						"buffer_size": 7226,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2910,
+								2910
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 1.0,
+						"translation.y": 1167.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"settings":
+					{
+						"buffer_size": 2730,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								544,
+								544
+							]
+						],
+						"settings":
+						{
+							"auto_name": "{",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		},
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 3,
+					"file": "analytics.html",
+					"settings":
+					{
+						"buffer_size": 10248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7244,
+								7244
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3018.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "index.html",
+					"settings":
+					{
+						"buffer_size": 7587,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5598,
+								5598
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2412.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "addParticipant.html",
+					"settings":
+					{
+						"buffer_size": 2351,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1362,
+								1362
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"settings":
+					{
+						"buffer_size": 2752,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								21,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "db.companies.insert({",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"settings":
+					{
+						"buffer_size": 1463,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1460,
+								1302
+							]
+						],
+						"settings":
+						{
+							"auto_name": "db.firsttimecheckins.insert(",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		},
 		{
@@ -611,13 +912,13 @@
 		"cols":
 		[
 			0.0,
-			0.689858609022,
+			0.421665725732,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.804892902343,
+			0.935483870968,
 			1.0
 		]
 	},
@@ -1163,6 +1464,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 267.0,
+	"side_bar_width": 119.0,
 	"status_bar_visible": true
 }

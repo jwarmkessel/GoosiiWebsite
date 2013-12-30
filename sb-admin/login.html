@@ -273,15 +273,6 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
           </div>
         </div><!-- /.row -->
         <script>
-              var today = new Date();
-              var sevenDaysAgo = new Date();
-              sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-              sevenDaysAgo.setHours(0);
-              sevenDaysAgo.setMinutes(0);
-              sevenDaysAgo.setSeconds(0);
-              sevenDaysAgo.setMilliseconds(0);
-
-              $('#dateRange').text(sevenDaysAgo.toDateString() + '-' + today.toDateString());
 
               var dates = new Array();
               var dateObjects = new Array();
@@ -296,77 +287,153 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
 
                 var graphData = [];
                 var morrisElementGraph = [];
-                var companyObj = $.getJSON('http://localhost:3000/analytics/displayInRange/5233805ec22ccd54d6fd2cff/1384848000000/1387785600000?callback=?',function  (data) {
-
-                  //Commented out because I don't know what this really does
-                  // data.sort();
-                  console.log(data + '-----------------');
-                  console.log(data[0].timestamp);
-                  // Pull back all UNIQUE dates and create a Date object for each. Set up a parallel array to hold the unique participants per date.
-                  var currentDay = new Date();
-                  currentDay.setHours(0);
-                  currentDay.setMinutes(0);
-                  currentDay.setSeconds(0);
-                  currentDay.setMilliseconds(0);
+                var companyObj = $.getJSON('http://localhost:3000/analytics/displayInRange/5233805ec22ccd54d6fd2cff/1386144000000/1388304000000?callback=?',function  (data) {
 
                   var range = 25;
+                  var today = new Date();
                   var sevenDaysAgo = new Date();
+                  today.setHours(0);
+                  today.setMinutes(0);
+                  today.setSeconds(0);
+                  today.setMilliseconds(0);
+                  console.log(today + ' ' + today.valueOf());
                   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - range);
-                  sevenDaysAgo.setHours(0);
-                  sevenDaysAgo.setMinutes(0);
-                  sevenDaysAgo.setSeconds(0);
-                  sevenDaysAgo.setMilliseconds(0);
+                  console.log(sevenDaysAgo + ' ' + sevenDaysAgo.valueOf());
 
-                  var startOfDay = sevenDaysAgo;
-                  var endOfDay = sevenDaysAgo.valueOf() + 86400000;
-
-                  var participantsInDay = 0;
-                  console.log(startOfDay.valueOf() + ' fourty days ago');
-                  // console.log(endOfDay);
-                  
-
-                  var j = 0;
-
+                  $('#dateRange').text(sevenDaysAgo.toDateString() + '-' + today.toDateString());
                   var morrisElement = {};
-                  
-                  var totalParticipantsOfDay = 0;
-                  // console.log(data[0].timestamp + '==========');
+                  var startRange = 1386144000000;
+                  var endRange = 1388304000000;
+                  var dateHasParticipants = 0 ;
+
+
+                  var milliSecBetweenStartAndEnd = endRange - startRange;
+                  var elapsedDays = milliSecBetweenStartAndEnd / 86400000;
+                  if((milliSecBetweenStartAndEnd % 86400000) > 0){
+                    elapsedDays += 1;
+                  }
+
+                  // First, set up the whole range with a vale of zero
+                  for(var i=0 ; i < elapsedDays ; i++){
+
+                      aDate = new Date(startRange);
+
+                      var calendarDate = aDate.getFullYear() + '-' + (aDate.getMonth() + 1) + '-' + aDate.getDate();
+                      // see if the calendar date has any participants. If it does, jump over it. 
+                      for(j=0; j<data.length; j++){
+                        dateObj = new Date(data[j].timestamp);
+                        var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
+                        if(calendarDate == calendarDateFTP){
+                          dateHasParticipants = 1;
+                          break;
+                        }
+                      }
+
+                      if(dateHasParticipants == 1){
+                        // do nothing
+                      } else {
+                        morrisElementGraph.push({d : calendarDate, visits : 0}); 
+                      }
+                      dateHasParticipants = 0;
+                      startRange +=  86400000;
+                  }
+
+
+                  //Isolate the dates of the FTPs and replace.
                   for(j=0; j<data.length; j++){
                       
                       dateObj = new Date(data[j].timestamp);
-
-                      var calendarDate = dateObj.getFullYear() + '-' + dateObj.getMonth() + '-' + dateObj.getDate();
-
-                      // console.log(calendarDate);
-
+                      var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
                       var previousDate;
 
                       if(j == 1) {
 
-                      previousDate = calendarDate;
-                      totalParticipantsOfDay++;
+                        previousDate = calendarDateFTP;
+                        totalParticipantsOfDay++;
 
-                      console.log("Previous day" + previousDate);
+                        console.log("Previous day" + previousDate);
 
                       } else {
 
-                        if(calendarDate == previousDate) {
+                        if(calendarDateFTP == previousDate) {
                           console.log("YAY");
                           totalParticipantsOfDay++;
 
                           console.log("Total In this day " + totalParticipantsOfDay);
 
-                          console.log("Total In this day "+ calendarDate + ' ' + totalParticipantsOfDay);                     
+                          console.log("Total In this day "+ calendarDateFTP + ' ' + totalParticipantsOfDay);                     
                           
-                          morrisElementGraph.push({d : calendarDate, visits : totalParticipantsOfDay});     
+                          morrisElementGraph.push({d : calendarDateFTP, visits : totalParticipantsOfDay});     
 
                         } else {
 
-                          previousDate = calendarDate;
+                          previousDate = calendarDateFTP;
                           totalParticipantsOfDay = 1;
                         }
                       }
+                    }
 
+                    console.log(morrisElementGraph);
+                  // //Commented out because I don't know what this really does
+                  // // data.sort();
+                  // console.log(data + '-----------------');
+                  // console.log(data[0].timestamp);
+                  // // Pull back all UNIQUE dates and create a Date object for each. Set up a parallel array to hold the unique participants per date.
+                  // var currentDay = new Date();
+                  // currentDay.setHours(0);
+                  // currentDay.setMinutes(0);
+                  // currentDay.setSeconds(0);
+                  // currentDay.setMilliseconds(0);
+
+
+                  // var startOfDay = sevenDaysAgo;
+                  // var endOfDay = sevenDaysAgo.valueOf() + 86400000;
+
+                  // var participantsInDay = 0;
+                  // console.log(startOfDay.valueOf() + ' fourty days ago');
+                  // console.log(currentDay.valueOf() + ' today');
+                  // // console.log(endOfDay);
+                  
+
+                  // var j = 0;
+                  // var totalParticipantsOfDay = 0;
+                  // // console.log(data[0].timestamp + '==========');
+                  // for(j=0; j<data.length; j++){
+                      
+                  //     dateObj = new Date(data[j].timestamp);
+
+                  //     var calendarDate = dateObj.getFullYear() + '-' + dateObj.getMonth() + 1) + '-' + dateObj.getDate();
+
+                  //     // console.log(calendarDate);
+
+                  //     var previousDate;
+
+                  //     if(j == 1) {
+
+                  //     previousDate = calendarDate;
+                  //     totalParticipantsOfDay++;
+
+                  //     console.log("Previous day" + previousDate);
+
+                  //     } else {
+
+                  //       if(calendarDate == previousDate) {
+                  //         console.log("YAY");
+                  //         totalParticipantsOfDay++;
+
+                  //         console.log("Total In this day " + totalParticipantsOfDay);
+
+                  //         console.log("Total In this day "+ calendarDate + ' ' + totalParticipantsOfDay);                     
+                          
+                  //         morrisElementGraph.push({d : calendarDate, visits : totalParticipantsOfDay});     
+
+                  //       } else {
+
+                  //         previousDate = calendarDate;
+                  //         totalParticipantsOfDay = 1;
+                  //       }
+                  //     }
+                  //   }
 
 
 
@@ -375,7 +442,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                     //   console.log("HELL WORLD");
                     //   eodObj = new Date(endOfDay);
                     //   //Everything in here is on the same day
-                    //   console.log("End of day:" + eodObj.getMonth() + '-' +eodObj.getDate() + '-' + eodObj.getFullYear() + '-' + eodObj.getHours() + '-' + eodObj.getMinutes() + " endOfDay " );
+                    //   console.log("End of day:" + eodObj.getMonth() + 1) + '-' +eodObj.getDate() + '-' + eodObj.getFullYear() + '-' + eodObj.getHours() + '-' + eodObj.getMinutes() + " endOfDay " );
                     //   participantsInDay++;
 
                       
@@ -389,7 +456,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                     //   endOfDay = endOfDay + 86400000;
                     //   participantsInDay = 1;
                     // }
-                  }
+                  //}
 
 
 
@@ -406,7 +473,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                   //   }
                   //   dateObj = new Date(dates[i]);
 
-                  //   var calendarDate = dateObj.getFullYear() + '-' + dateObj.getMonth() + '-' + dateObj.getDate();
+                  //   var calendarDate = dateObj.getFullYear() + '-' + dateObj.getMonth() + 1) + '-' + dateObj.getDate();
                   //   var foo = {d : calendarDate, visits: uniqueParticipants[i] }; 
                   //   console.log("data object " + foo.d + "..." + foo.visits);
                   //   graphData.push(foo);

@@ -116,7 +116,7 @@ app.get('/analytics/display/:companyId', function(req, res){
 
 
 app.get('/analytics/displayInRange/:companyId/:startDate/:endDate', function(req, res){
-	firstTimeCheckIns.find({companyId: req.params.companyId, "timestamp" : {$gt: req.params.startDate, $lt: req.params.endDate}}), function(err, doc){
+	firstTimeCheckIns.find({companyId: req.params.companyId, "timestamp" : {$gte: req.params.startDate, $lt: req.params.endDate}}, function(err, doc){
 		var test = JSON.stringify(doc);
 
 		console.log(doc);

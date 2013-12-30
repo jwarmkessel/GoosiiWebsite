@@ -115,6 +115,18 @@ app.get('/analytics/display/:companyId', function(req, res){
 });
 
 
+app.get('/analytics/displayInRange/:companyId/:startDate/:endDate', function(req, res){
+	firstTimeCheckIns.find({companyId: req.params.companyId, "timestamp" : {$gt: req.params.startDate, $lt: req.params.endDate}}), function(err, doc){
+		var test = JSON.stringify(doc);
+
+		console.log(doc);
+		// res.send(test);        
+		res.jsonp(doc);
+		// console.log(test);
+	});
+});
+
+
 // We only want information from the past seven days. 
 var sevenDaysAgo = new Date();
 sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 40);

@@ -276,19 +276,14 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
 
               var dates = new Array();
               var dateObjects = new Array();
-              var uniqueParticipants = new Array();
             // Setting up the storage arrays to assemble the graphs
-                
-                // for(var i = 0; i < data.length; i++){
-                //   dates[i] = data[i];
-                //   dateObjects[i] = new Date(data[i]);
-                //   uniqueParticipants[i] = 0 ;
-                // }
 
-                var graphData = [];
                 var morrisElementGraph = [];
+                // Start and End dates need to be placed within the getJSON call eventually. 
                 var companyObj = $.getJSON('http://localhost:3000/analytics/displayInRange/5233805ec22ccd54d6fd2cff/1386144000000/1388304000000?callback=?',function  (data) {
 
+                  // Range is the period of days we want to see the graph for from the present date. For now, 
+                  // we use the console.log to get the time out in milliseconds to display data accurately.
                   var range = 25;
                   var today = new Date();
                   var sevenDaysAgo = new Date();
@@ -300,13 +295,14 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - range);
                   console.log(sevenDaysAgo + ' ' + sevenDaysAgo.valueOf());
 
+                  // The following is used to alter the graph title to reflect accurate start and end dates of measurement.
                   $('#dateRange').text(sevenDaysAgo.toDateString() + '-' + today.toDateString());
                   var morrisElement = {};
                   var startRange = 1386144000000;
                   var endRange = 1388304000000;
                   var dateHasParticipants = 0 ;
 
-
+                  // Find out what how many days have elasped between the start and end milliseconds.
                   var milliSecBetweenStartAndEnd = endRange - startRange;
                   var elapsedDays = milliSecBetweenStartAndEnd / 86400000;
                   if((milliSecBetweenStartAndEnd % 86400000) > 0){
@@ -319,7 +315,8 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                       aDate = new Date(startRange);
 
                       var calendarDate = aDate.getFullYear() + '-' + (aDate.getMonth() + 1) + '-' + aDate.getDate();
-                      // see if the calendar date has any participants. If it does, jump over it. 
+                      // Right now, we only want to handle the days that have no participants.
+                      // The following sees if the calendar date has any participants. If it does, we jump over it. 
                       for(j=0; j<data.length; j++){
                         dateObj = new Date(data[j].timestamp);
                         var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
@@ -334,12 +331,14 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                       } else {
                         morrisElementGraph.push({d : calendarDate, visits : 0}); 
                       }
+                      // Reset the flag to 0 and move onto the next day by adding the milliseconds needed.
                       dateHasParticipants = 0;
                       startRange +=  86400000;
                   }
 
 
-                  //Isolate the dates of the FTPs and replace.
+                  // Now we handle the dates with participants. 
+                  // We isolate the dates of the FTPs and plug them into the morrisElementGraph appropriately.
                   for(j=0; j<data.length; j++){
                       
                       dateObj = new Date(data[j].timestamp);
@@ -351,17 +350,16 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                         previousDate = calendarDateFTP;
                         totalParticipantsOfDay++;
 
-                        console.log("Previous day" + previousDate);
+                        // console.log("Previous day" + previousDate);
 
                       } else {
 
                         if(calendarDateFTP == previousDate) {
-                          console.log("YAY");
+                          // console.log("YAY");
                           totalParticipantsOfDay++;
 
-                          console.log("Total In this day " + totalParticipantsOfDay);
-
-                          console.log("Total In this day "+ calendarDateFTP + ' ' + totalParticipantsOfDay);                     
+                          // console.log("Total In this day " + totalParticipantsOfDay);
+                          // console.log("Total In this day "+ calendarDateFTP + ' ' + totalParticipantsOfDay);                     
                           
                           morrisElementGraph.push({d : calendarDateFTP, visits : totalParticipantsOfDay});     
 
@@ -374,127 +372,6 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                     }
 
                     console.log(morrisElementGraph);
-                  // //Commented out because I don't know what this really does
-                  // // data.sort();
-                  // console.log(data + '-----------------');
-                  // console.log(data[0].timestamp);
-                  // // Pull back all UNIQUE dates and create a Date object for each. Set up a parallel array to hold the unique participants per date.
-                  // var currentDay = new Date();
-                  // currentDay.setHours(0);
-                  // currentDay.setMinutes(0);
-                  // currentDay.setSeconds(0);
-                  // currentDay.setMilliseconds(0);
-
-
-                  // var startOfDay = sevenDaysAgo;
-                  // var endOfDay = sevenDaysAgo.valueOf() + 86400000;
-
-                  // var participantsInDay = 0;
-                  // console.log(startOfDay.valueOf() + ' fourty days ago');
-                  // console.log(currentDay.valueOf() + ' today');
-                  // // console.log(endOfDay);
-                  
-
-                  // var j = 0;
-                  // var totalParticipantsOfDay = 0;
-                  // // console.log(data[0].timestamp + '==========');
-                  // for(j=0; j<data.length; j++){
-                      
-                  //     dateObj = new Date(data[j].timestamp);
-
-                  //     var calendarDate = dateObj.getFullYear() + '-' + dateObj.getMonth() + 1) + '-' + dateObj.getDate();
-
-                  //     // console.log(calendarDate);
-
-                  //     var previousDate;
-
-                  //     if(j == 1) {
-
-                  //     previousDate = calendarDate;
-                  //     totalParticipantsOfDay++;
-
-                  //     console.log("Previous day" + previousDate);
-
-                  //     } else {
-
-                  //       if(calendarDate == previousDate) {
-                  //         console.log("YAY");
-                  //         totalParticipantsOfDay++;
-
-                  //         console.log("Total In this day " + totalParticipantsOfDay);
-
-                  //         console.log("Total In this day "+ calendarDate + ' ' + totalParticipantsOfDay);                     
-                          
-                  //         morrisElementGraph.push({d : calendarDate, visits : totalParticipantsOfDay});     
-
-                  //       } else {
-
-                  //         previousDate = calendarDate;
-                  //         totalParticipantsOfDay = 1;
-                  //       }
-                  //     }
-                  //   }
-
-
-
-
-                    // if(data[j].timestamp <= endOfDay) {
-                    //   console.log("HELL WORLD");
-                    //   eodObj = new Date(endOfDay);
-                    //   //Everything in here is on the same day
-                    //   console.log("End of day:" + eodObj.getMonth() + 1) + '-' +eodObj.getDate() + '-' + eodObj.getFullYear() + '-' + eodObj.getHours() + '-' + eodObj.getMinutes() + " endOfDay " );
-                    //   participantsInDay++;
-
-                      
-
-                    //   morrisElement = {d : calendarDate, visits : participantsInDay};
-                    //   console.log("HELLO " + morrisElement.d + ' ' + morrisElement.visits);
-                    // } else {
-                    //   //If we reach here that means we've begun a new day and need to set the endOfDay to the next
-                    //   morrisElementGraph.push(morrisElement);
-                    //   console.log("Start the next day");
-                    //   endOfDay = endOfDay + 86400000;
-                    //   participantsInDay = 1;
-                    // }
-                  //}
-
-
-
-
-
-
-
-                  // Tallies up the number of unique participants per day
-                  // for(var i=0; i<dates.length; i++){
-                  //   for(var j=0; j<data.length; j++){
-                  //     if(data[j].timestamp == dates[i]){
-                  //       uniqueParticipants[i]++;
-                  //     }
-                  //   }
-                  //   dateObj = new Date(dates[i]);
-
-                  //   var calendarDate = dateObj.getFullYear() + '-' + dateObj.getMonth() + 1) + '-' + dateObj.getDate();
-                  //   var foo = {d : calendarDate, visits: uniqueParticipants[i] }; 
-                  //   console.log("data object " + foo.d + "..." + foo.visits);
-                  //   graphData.push(foo);
-
-                  //   console.log('uniqueParticipants1: ' + uniqueParticipants.length +"\n\n");
-                  // }
-
-                  // // Apply the dateObjects and number of unique participants arrays to set up the graph
-                  // var data = {
-                  //   labels : dateObjects,
-                  //   datasets : [
-                  //     {
-                  //       fillColor : "rgba(220,220,220,0.5)",
-                  //       strokeColor : "rgba(220,220,220,1)",
-                  //       pointColor : "rgba(220,220,220,1)",
-                  //       pointStrokeColor : "#fff",
-                  //       data : uniqueParticipants
-                  //     },
-                  //   ]
-                  // }
-
 
                  /******************* MORRIS CHART CODE ************************/
 

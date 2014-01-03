@@ -25,6 +25,209 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
 
   <body>
 
+<script>
+  $(document).ready(function(){
+    var SearchString = window.location.search.substring(1);
+    var VariableArray = SearchString.split('&');
+    var selectedTimeRange = '';
+    var today = new Date();
+    today.setHours(0);
+    today.setMinutes(0);
+    today.setSeconds(0);
+    today.setMilliseconds(0);
+    var startOfTimeRange = new Date();
+
+    // check the URL to see what range setting is set
+    for(var i = 0; i < VariableArray.length; i++){
+        var KeyValuePair = VariableArray[i].split('=');
+        if(KeyValuePair[0] == 'timeRangeOptions'){
+            selectedTimeRange = KeyValuePair[1];
+        }
+    }
+    // pull back data according to the selected time range
+    switch(selectedTimeRange){
+      case 'lastYear': 
+        startOfTimeRange.setDate(today.getDate() - 365);
+        startRange = startOfTimeRange.valueOf()
+        endRange = today.valueOf();
+        $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+        $('#timeRangeOptions').val('lastYear');
+        break;
+      case 'lastThirtyDays': 
+        startOfTimeRange.setDate(today.getDate() - 30);
+        startRange = startOfTimeRange.valueOf()
+        endRange = today.valueOf();
+        $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+        $('#timeRangeOptions').val('lastThirtyDays');
+        break;
+      case 'lastWeek': 
+      default:
+        startOfTimeRange.setDate(today.getDate() - 7);
+        startRange = startOfTimeRange.valueOf()
+        endRange = today.valueOf();
+        $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+        $('#timeRangeOptions').val('lastWeek');
+        break;
+    }
+
+    // Following code takes care of the First Time Checkin Counter. Deactivated for now.
+    // var clientStartDate = new Date();
+    // var selectedCompany = $.getJSON('http://localhost:3000/analytics/getFirsttimeCheckIns/5233805ec22ccd54d6fd2cff/' + clientStartDate.valueOf() + '?callback=?',function (data) {
+    //       $('#firstTimeCheckInCounter').text(data);
+    // });
+
+    var dates = new Array();
+    var dateObjects = new Array();
+    var uniqueParticipants = new Array();
+  // Setting up the storage arrays to assemble the graphs
+
+      var morrisElementGraph = [];
+      var companyObj = $.getJSON('http://localhost:3000/analytics/displayInRange/5233805ec22ccd54d6fd2cff/' + startRange + '/' + endRange + '?callback=?',function  (data) {
+
+        var dateHasParticipants = 0;
+        var milliSecBetweenStartAndEnd = endRange - startRange;
+        var elapsedDays = milliSecBetweenStartAndEnd / 86400000;
+        if((milliSecBetweenStartAndEnd % 86400000) > 0){
+          elapsedDays += 1;
+        }
+
+        // First, set up the whole range with a vale of zero
+        for(var i=0 ; i < elapsedDays ; i++){
+
+            aDate = new Date(startRange);
+
+            var calendarDate = aDate.getFullYear() + '-' + (aDate.getMonth() + 1) + '-' + aDate.getDate();
+            // see if the calendar date has any participants. If it does, jump over it. 
+            for(j=0; j<data.length; j++){
+              dateObj = new Date(data[j].timestamp);
+              var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
+              if(calendarDate == calendarDateFTP){
+                dateHasParticipants = 1;
+                break;
+              }
+            }
+
+            if(dateHasParticipants == 1){
+              // do nothing
+            } else {
+              morrisElementGraph.push({d : calendarDate, visits : 0}); 
+            }
+            dateHasParticipants = 0;
+            startRange +=  86400000;
+        }
+
+
+        //Isolate the dates of the FTPs and replace.
+        for(j=0; j<data.length; j++){
+            
+            dateObj = new Date(data[j].timestamp);
+            var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
+            var previousDate;
+
+            if(j == 1) {
+
+              previousDate = calendarDateFTP;
+              totalParticipantsOfDay++;
+
+              console.log("Previous day" + previousDate);
+
+            } else {
+
+              if(calendarDateFTP == previousDate) {
+                console.log("YAY");
+                totalParticipantsOfDay++;
+
+                console.log("Total In this day " + totalParticipantsOfDay);
+
+                console.log("Total In this day "+ calendarDateFTP + ' ' + totalParticipantsOfDay);                     
+                
+                morrisElementGraph.push({d : calendarDateFTP, visits : totalParticipantsOfDay});     
+
+              } else {
+
+                previousDate = calendarDateFTP;
+                totalParticipantsOfDay = 1;
+              }
+            }
+          }
+
+          console.log(morrisElementGraph);
+
+
+       /******************* MORRIS CHART CODE ************************/
+
+       // First Chart Example - Area Line Chart
+
+        Morris.Area({
+          // ID of the element in which to draw the chart.
+          element: 'morris-chart-area',
+          // Chart data records -- each entry in this array corresponds to a point on
+          // the chart.
+          data: morrisElementGraph,
+          // The name of the data record attribute that contains x-visitss.
+          xkey: 'd',
+          // A list of names of data record attributes that contain y-visitss.
+          ykeys: ['visits'],
+          // Labels for the ykeys -- will be displayed when you hover over the
+          // chart.
+          labels: ['Visits'],
+          // Disables line smoothing
+          smooth: false,
+        });
+
+        Morris.Donut({
+          element: 'morris-chart-donut',
+          data: [
+            {label: "Referral", value: 42.7},
+            {label: "Direct", value: 8.3},
+            {label: "Social", value: 12.8},
+            {label: "Organic", value: 36.2}
+          ],
+          formatter: function (y) { return y + "%" ;}
+        });
+
+        Morris.Line({
+          // ID of the element in which to draw the chart.
+          element: 'morris-chart-line',
+          // Chart data records -- each entry in this array corresponds to a point on
+          // the chart.
+          data: morrisElementGraph,
+          // The name of the data record attribute that contains x-visitss.
+          xkey: 'd',
+          // A list of names of data record attributes that contain y-visitss.
+          ykeys: ['visits'],
+          // Labels for the ykeys -- will be displayed when you hover over the
+          // chart.
+          labels: ['Visits'],
+          // Disables line smoothing
+          smooth: false,
+        });
+
+        Morris.Bar ({
+          element: 'morris-chart-bar',
+          data: [
+          {device: 'iPhone', geekbench: 136},
+          {device: 'iPhone 3G', geekbench: 137},
+          {device: 'iPhone 3GS', geekbench: 275},
+          {device: 'iPhone 4', geekbench: 380},
+          {device: 'iPhone 4S', geekbench: 655},
+          {device: 'iPhone 5', geekbench: 1571}
+          ],
+          xkey: 'device',
+          ykeys: ['geekbench'],
+          labels: ['Geekbench'],
+          barRatio: 0.4,
+          xLabelAngle: 35,
+          hideHover: 'auto'
+        });
+      });
+        /*****************************************/
+
+
+
+  });
+</script>
+
     <div id="wrapper">
 
       <!-- Sidebar -->
@@ -149,7 +352,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                     <i class="fa fa-comments fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p class="announcement-heading">456</p>
+                    <p id="firstTimeCheckInCounter" class="announcement-heading">456</p>
                     <p class="announcement-text">First Time Checkins!</p>
                   </div>
                 </div>
@@ -264,7 +467,18 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
           <div class="col-lg-12">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 id="dateRange"  class="panel-title"><iclass="fa fa-bar-chart-o"></i> Checkin Statistics: October 1, 2013 - October 31, 2013</h3>
+                <h3 id="dateRange"  class="panel-title"><iclass="fa fa-bar-chart-o"></i><span id="analyzedDates"> Checkin Statistics: October 1, 2013 - October 31, 2013</span>
+                  <select id="timeRangeOptions" onChange="Refresh(this.value)">
+                    <option value="lastWeek">Last Week:</option>
+                    <option value="lastThirtyDays">Last 30 Days:</option>
+                    <option value="lastYear">Last Year:</option>
+                  </select>
+                  <script>
+                    function Refresh(id){
+                      location.href="login.html?timeRangeOptions=" + id;
+                    }
+                  </script>
+                </h3>
               </div>
               <div class="panel-body">
                 <div id="morris-chart-area"></div>
@@ -273,175 +487,6 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
           </div>
         </div><!-- /.row -->
         <script>
-
-              var dates = new Array();
-              var dateObjects = new Array();
-            // Setting up the storage arrays to assemble the graphs
-
-                var morrisElementGraph = [];
-                // Start and End dates need to be placed within the getJSON call eventually. 
-                var companyObj = $.getJSON('http://localhost:3000/analytics/displayInRange/5233805ec22ccd54d6fd2cff/1386144000000/1388304000000?callback=?',function  (data) {
-
-                  // Range is the period of days we want to see the graph for from the present date. For now, 
-                  // we use the console.log to get the time out in milliseconds to display data accurately.
-                  var range = 25;
-                  var today = new Date();
-                  var sevenDaysAgo = new Date();
-                  today.setHours(0);
-                  today.setMinutes(0);
-                  today.setSeconds(0);
-                  today.setMilliseconds(0);
-                  console.log(today + ' ' + today.valueOf());
-                  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - range);
-                  console.log(sevenDaysAgo + ' ' + sevenDaysAgo.valueOf());
-
-                  // The following is used to alter the graph title to reflect accurate start and end dates of measurement.
-                  $('#dateRange').text(sevenDaysAgo.toDateString() + '-' + today.toDateString());
-                  var morrisElement = {};
-                  var startRange = 1386144000000;
-                  var endRange = 1388304000000;
-                  var dateHasParticipants = 0 ;
-
-                  // Find out what how many days have elasped between the start and end milliseconds.
-                  var milliSecBetweenStartAndEnd = endRange - startRange;
-                  var elapsedDays = milliSecBetweenStartAndEnd / 86400000;
-                  if((milliSecBetweenStartAndEnd % 86400000) > 0){
-                    elapsedDays += 1;
-                  }
-
-                  // First, set up the whole range with a vale of zero
-                  for(var i=0 ; i < elapsedDays ; i++){
-
-                      aDate = new Date(startRange);
-
-                      var calendarDate = aDate.getFullYear() + '-' + (aDate.getMonth() + 1) + '-' + aDate.getDate();
-                      // Right now, we only want to handle the days that have no participants.
-                      // The following sees if the calendar date has any participants. If it does, we jump over it. 
-                      for(j=0; j<data.length; j++){
-                        dateObj = new Date(data[j].timestamp);
-                        var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
-                        if(calendarDate == calendarDateFTP){
-                          dateHasParticipants = 1;
-                          break;
-                        }
-                      }
-
-                      if(dateHasParticipants == 1){
-                        // do nothing
-                      } else {
-                        morrisElementGraph.push({d : calendarDate, visits : 0}); 
-                      }
-                      // Reset the flag to 0 and move onto the next day by adding the milliseconds needed.
-                      dateHasParticipants = 0;
-                      startRange +=  86400000;
-                  }
-
-
-                  // Now we handle the dates with participants. 
-                  // We isolate the dates of the FTPs and plug them into the morrisElementGraph appropriately.
-                  for(j=0; j<data.length; j++){
-                      
-                      dateObj = new Date(data[j].timestamp);
-                      var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
-                      var previousDate;
-
-                      if(j == 1) {
-
-                        previousDate = calendarDateFTP;
-                        totalParticipantsOfDay++;
-
-                        // console.log("Previous day" + previousDate);
-
-                      } else {
-
-                        if(calendarDateFTP == previousDate) {
-                          // console.log("YAY");
-                          totalParticipantsOfDay++;
-
-                          // console.log("Total In this day " + totalParticipantsOfDay);
-                          // console.log("Total In this day "+ calendarDateFTP + ' ' + totalParticipantsOfDay);                     
-                          
-                          morrisElementGraph.push({d : calendarDateFTP, visits : totalParticipantsOfDay});     
-
-                        } else {
-
-                          previousDate = calendarDateFTP;
-                          totalParticipantsOfDay = 1;
-                        }
-                      }
-                    }
-
-                    console.log(morrisElementGraph);
-
-                 /******************* MORRIS CHART CODE ************************/
-
-                 // First Chart Example - Area Line Chart
-
-                  Morris.Area({
-                    // ID of the element in which to draw the chart.
-                    element: 'morris-chart-area',
-                    // Chart data records -- each entry in this array corresponds to a point on
-                    // the chart.
-                    data: morrisElementGraph,
-                    // The name of the data record attribute that contains x-visitss.
-                    xkey: 'd',
-                    // A list of names of data record attributes that contain y-visitss.
-                    ykeys: ['visits'],
-                    // Labels for the ykeys -- will be displayed when you hover over the
-                    // chart.
-                    labels: ['Visits'],
-                    // Disables line smoothing
-                    smooth: false,
-                  });
-
-                  Morris.Donut({
-                    element: 'morris-chart-donut',
-                    data: [
-                      {label: "Referral", value: 42.7},
-                      {label: "Direct", value: 8.3},
-                      {label: "Social", value: 12.8},
-                      {label: "Organic", value: 36.2}
-                    ],
-                    formatter: function (y) { return y + "%" ;}
-                  });
-
-                  Morris.Line({
-                    // ID of the element in which to draw the chart.
-                    element: 'morris-chart-line',
-                    // Chart data records -- each entry in this array corresponds to a point on
-                    // the chart.
-                    data: morrisElementGraph,
-                    // The name of the data record attribute that contains x-visitss.
-                    xkey: 'd',
-                    // A list of names of data record attributes that contain y-visitss.
-                    ykeys: ['visits'],
-                    // Labels for the ykeys -- will be displayed when you hover over the
-                    // chart.
-                    labels: ['Visits'],
-                    // Disables line smoothing
-                    smooth: false,
-                  });
-
-                  Morris.Bar ({
-                    element: 'morris-chart-bar',
-                    data: [
-                    {device: 'iPhone', geekbench: 136},
-                    {device: 'iPhone 3G', geekbench: 137},
-                    {device: 'iPhone 3GS', geekbench: 275},
-                    {device: 'iPhone 4', geekbench: 380},
-                    {device: 'iPhone 4S', geekbench: 655},
-                    {device: 'iPhone 5', geekbench: 1571}
-                    ],
-                    xkey: 'device',
-                    ykeys: ['geekbench'],
-                    labels: ['Geekbench'],
-                    barRatio: 0.4,
-                    xLabelAngle: 35,
-                    hideHover: 'auto'
-                  });
-                });
-                  /*****************************************/
-
 
         </script>
 

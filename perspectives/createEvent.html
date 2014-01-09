@@ -397,7 +397,7 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 			<label>	 Reward Image </label>
 			<img id="rewardImgPreview" border="1" style="margin-top:10px; width:28%; border:0.5px solid #666" src=""></img><br>				
 			<section class="uploadRewardImage">
-				<section id='uploadFormReward'  enctype='multipart/form-data' method="POST" action='http://www.goosii.com:3001/test'> <!--  action='/fileUpload' -->
+				<section id='uploadFormReward'  enctype='multipart/form-data' method="POST" action='http://www.goosii.com:3005/test'> <!--  action='/fileUpload' -->
 					<input id="inputFileReward" type="file"></input>
 					<input id='inputSubmitReward' type='button' value='upload'></input>
 	        <div id="fileNameReward"></div>
@@ -407,9 +407,11 @@ Dividers : 	http://css-tricks.com/examples/hrs/
   			</section>
 			</section><br>
 			<label>	 Mobile Background </label>
+			
+			<!-- THE BACKGROUND IMAGE ON THE MOBILE PAGE-->
 			<img id="mobileBackgroundImagePreview" border="1" style="margin-top:10px; border:0.5px solid #666" src=""></img><br>		
 			<section class="uploadRewardImage">
-				<section id='uploadForm'  enctype='multipart/form-data' method="POST" action='http://www.goosii.com:3001/test'> <!--  action='/fileUpload' -->
+				<section id='uploadForm'  enctype='multipart/form-data' method="POST" action='http://www.goosii.com:3005/test'> <!--  action='/fileUpload' -->
 					<input id="inputFile" type="file"></input>
 					<input id='inputSubmit' type='button' value='upload'></input>
 	        <div id="fileName"></div>
@@ -488,7 +490,7 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 		console.log("EventString " + eventString);
 		
 		console.log("Test comp contest " + companyObject.contest.participationPost);
-		var companyObj = $.getJSON('http://www.goosii.com:3001/updateEvent/' + $('#objId').val() + '/' + encodeURIComponent(eventString) + '?callback=?',function  (data) {
+		var companyObj = $.getJSON('http://www.goosii.com:3005/updateEvent/' + $('#objId').val() + '/' + encodeURIComponent(eventString) + '?callback=?',function  (data) {
 			console.log("some data " + data);
 			//Update interface data.
 			getCompanyObject();
@@ -499,8 +501,8 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 	var getCompanyObject = function() {
 		
 		//Sample: 5233805ec22ccd54d6fd2cff
-		var companyObj = $.getJSON('http://www.goosii.com:3001/getComp/' + $('#objId').val() + '?callback=?',function  (data) {	 //52785a29e97c2e1e62000001
-		// var companyObj = $.getJSON('http://www.goosii.com:3001/getComp/5233805ec22ccd54d6fd2cff?callback=?',function  (data) {
+		var companyObj = $.getJSON('http://www.goosii.com:3005/getComp/' + $('#objId').val() + '?callback=?',function  (data) {	 //52785a29e97c2e1e62000001
+		// var companyObj = $.getJSON('http://www.goosii.com:3005/getComp/5233805ec22ccd54d6fd2cff?callback=?',function  (data) {
 			console.log(data) ;
 
 			companyObject = data;
@@ -674,7 +676,7 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 	
 		var eventString = JSON.stringify(eventObject);
 	
-		var companyObj = $.getJSON('http://www.goosii.com:3001/createContest/' + $('#objId').val() + '/' + encodeURIComponent(eventString) + '?callback=?',function  (data) {
+		var companyObj = $.getJSON('http://www.goosii.com:3005/createContest/' + $('#objId').val() + '/' + encodeURIComponent(eventString) + '?callback=?',function  (data) {
 			console.log(data);
 		
 		//Update interface data.
@@ -741,7 +743,7 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 	};
 	
 	$("#inputSubmit").click(function() {
-		var url = "http://www.goosii.com:3001/test";
+		var url = "http://www.goosii.com:3005/test";
 		var method = 'POST';
 		var xhr = createCORSRequest(method, url);
 
@@ -766,7 +768,7 @@ Dividers : 	http://css-tricks.com/examples/hrs/
     // xhr.addEventListener('abort', uploadCanceled, false);
 
 		console.log("POST to Goosii");
-		//xhr.open("POST", 'http://localhost:3001/test');
+		//xhr.open("POST", 'http://localhost:3005/test');
 		//xhr.onreadystatechange = responseHandler;
 		// xhr.send(fd);
 		
@@ -784,7 +786,7 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 	});
 	
 	$("#inputSubmitReward").click(function() {
-		var url = "http://www.goosii.com:3001/test";
+		var url = "http://www.goosii.com:3005/test";
 		var method = 'POST';
 		var xhr = createCORSRequest(method, url);
 
@@ -808,7 +810,7 @@ Dividers : 	http://css-tricks.com/examples/hrs/
 		    // xhr.addEventListener('abort', uploadCanceled, false);
 		
 		// console.log("POST to Goosii");
-		//     xhr.open("POST", 'http://localhost:3001/test');
+		//     xhr.open("POST", 'http://localhost:3005/test');
 		// xhr.onreadystatechange = responseHandler;
 		// xhr.send(fd);
 		

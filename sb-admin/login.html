@@ -314,7 +314,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                   }
 
                   // First, set up the whole range with a vale of zero
-                  for(var i=0 ; i < elapsedDays ; i++){
+                  for(var i=0 ; i < elapsedDays ; i++) {
 
                       aDate = new Date(startRange);
 
@@ -341,37 +341,37 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
 
                   //Isolate the dates of the FTPs and replace.
                   for(j=0; j<data.length; j++){
-                      
-                      dateObj = new Date(data[j].timestamp);
-                      var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
-                      var previousDate;
+										
+										dateObj = new Date(data[j].timestamp);
+										var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
+										var previousDate;
 
-                      if(j == 1) {
+										if(j == 1) {
 
-                        previousDate = calendarDateFTP;
-                        totalParticipantsOfDay++;
+											previousDate = calendarDateFTP;
+											totalParticipantsOfDay++;
 
-                        console.log("Previous day" + previousDate);
+ 											console.log("Previous day" + previousDate);
 
-                      } else {
+										} else {
 
-                        if(calendarDateFTP == previousDate) {
-                          console.log("YAY");
-                          totalParticipantsOfDay++;
+											if(calendarDateFTP == previousDate) {
+												console.log("YAY");
+												totalParticipantsOfDay++;
 
-                          console.log("Total In this day " + totalParticipantsOfDay);
+												console.log("Total In this day " + totalParticipantsOfDay);
 
-                          console.log("Total In this day "+ calendarDateFTP + ' ' + totalParticipantsOfDay);                     
-                          
-                          morrisElementGraph.push({d : calendarDateFTP, visits : totalParticipantsOfDay});     
+												console.log("Total In this day "+ calendarDateFTP + ' ' + totalParticipantsOfDay);                     
+                        
+												morrisElementGraph.push({d : calendarDateFTP, visits : totalParticipantsOfDay});     
 
-                        } else {
+											} else {
 
-                          previousDate = calendarDateFTP;
-                          totalParticipantsOfDay = 1;
-                        }
-                      }
-                    }
+												previousDate = calendarDateFTP;
+												totalParticipantsOfDay = 1;
+											}
+										}
+									}
 
                     console.log(morrisElementGraph);
                   // //Commented out because I don't know what this really does

@@ -27,6 +27,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
 
 <script>
   $(document).ready(function(){
+
     var SearchString = window.location.search.substring(1);
     var VariableArray = SearchString.split('&');
     var selectedTimeRange = '';
@@ -70,11 +71,6 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
         break;
     }
 
-    // Following code takes care of the First Time Checkin Counter. Deactivated for now.
-    // var clientStartDate = new Date();
-    // var selectedCompany = $.getJSON('http://localhost:3000/analytics/getFirsttimeCheckIns/5233805ec22ccd54d6fd2cff/' + clientStartDate.valueOf() + '?callback=?',function (data) {
-    //       $('#firstTimeCheckInCounter').text(data);
-    // });
 
     var dates = new Array();
     var dateObjects = new Array();
@@ -82,7 +78,8 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
   // Setting up the storage arrays to assemble the graphs
 
       var morrisElementGraph = [];
-      var companyObj = $.getJSON('http://localhost:3000/analytics/displayInRange/5233805ec22ccd54d6fd2cff/' + startRange + '/' + endRange + '?callback=?',function  (data) {
+      var companyObj = $.getJSON('http://www.goosii.com:3001/analytics/displayInRange/5233805ec22ccd54d6fd2cff/' + startRange + '/' + endRange + '?callback=?',function  (data) {
+        console.log(startRange + ' ' + endRange);
 
         var dateHasParticipants = 0;
         var milliSecBetweenStartAndEnd = endRange - startRange;
@@ -153,6 +150,24 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
 
           console.log(morrisElementGraph);
 
+    // Following code takes care of the First Time Checkin Counter. Deactivated for now.
+    var clientStartDate = new Date();
+    var selectedCompany = $.getJSON('http://www.goosii.com:3001/analytics/getFirsttimeCheckIns/5233805ec22ccd54d6fd2cff/' + clientStartDate.valueOf() + '?callback=?',function (data) {
+          $('#firstTimeCheckInCounter').text(data.length);
+          
+          var totalParticipantsObj = $.getJSON('http://www.goosii.com:3001/analytics/getTotalParticipants/5233805ec22ccd54d6fd2cff/' + '?callback=?',function  (data) {
+              console.log('THIS SHOULD WORK ' + data);
+              $('#totalParticipatingCounter').text(data.length);
+
+              var totalCouponsValidatedObj = $.getJSON('http://www.goosii.com:3001/analytics/getTotalValidatedCoupons/5233805ec22ccd54d6fd2cff/' + '?callback=?',function  (data) {
+                  console.log('THIS SHOULD WORK GETTOTALVALID' + data);
+                  $('#totalValidatedCoupons').text(data.length);
+              });
+          });
+
+
+
+    });
 
        /******************* MORRIS CHART CODE ************************/
 
@@ -220,6 +235,8 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
           xLabelAngle: 35,
           hideHover: 'auto'
         });
+
+
       });
         /*****************************************/
 
@@ -352,7 +369,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                     <i class="fa fa-comments fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p id="firstTimeCheckInCounter" class="announcement-heading">456</p>
+                    <p id="firstTimeCheckInCounter" class="announcement-heading"></p>
                     <p class="announcement-text">First Time Checkins!</p>
                   </div>
                 </div>
@@ -407,7 +424,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                     <i class="fa fa-comments fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p class="announcement-heading">1056</p>
+                    <p id="totalParticipatingCounter" class="announcement-heading"></p>
                     <p class="announcement-text">Total Participating!</p>
                   </div>
                 </div>
@@ -438,7 +455,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                     <i class="fa fa-tasks fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p class="announcement-heading">18</p>
+                    <p id="totalValidatedCoupons" class="announcement-heading"></p>
                     <p class="announcement-text">Total Validated Coupons</p>
                   </div>
                 </div>

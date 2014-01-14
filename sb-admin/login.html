@@ -113,42 +113,31 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
             startRange +=  86400000;
         }
 
-
         //Isolate the dates of the FTPs and replace.
         for(j=0; j<data.length; j++){
-            
-            dateObj = new Date(data[j].timestamp);
-            var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
-            var previousDate;
+					var totalParticipantsOfDay = 0;    
+					dateObj = new Date(data[j].timestamp);
+					var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
+					var previousDate;
+					if(j == 0) {
 
-            if(j == 1) {
+						previousDate = calendarDateFTP;
+						totalParticipantsOfDay++;
+					} else {		
 
-              previousDate = calendarDateFTP;
-              totalParticipantsOfDay++;
+						if(calendarDateFTP == previousDate) {
 
-              console.log("Previous day" + previousDate);
+							totalParticipantsOfDay++;
+						} else {
+						
+							previousDate = calendarDateFTP;
+							totalParticipantsOfDay = 1;
+						}
+						morrisElementGraph.push({d : calendarDateFTP, visits : totalParticipantsOfDay});     
+					}
+				}
 
-            } else {
-
-              if(calendarDateFTP == previousDate) {
-                console.log("YAY");
-                totalParticipantsOfDay++;
-
-                console.log("Total In this day " + totalParticipantsOfDay);
-
-                console.log("Total In this day "+ calendarDateFTP + ' ' + totalParticipantsOfDay);                     
-                
-                morrisElementGraph.push({d : calendarDateFTP, visits : totalParticipantsOfDay});     
-
-              } else {
-
-                previousDate = calendarDateFTP;
-                totalParticipantsOfDay = 1;
-              }
-            }
-          }
-
-          console.log(morrisElementGraph);
+				console.log(morrisElementGraph);
 
     // Following code takes care of the First Time Checkin Counter. Deactivated for now.
     var clientStartDate = new Date();

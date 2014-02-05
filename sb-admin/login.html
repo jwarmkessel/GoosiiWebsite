@@ -15,7 +15,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <script src="js/jquery-1.10.2.js"></script>
-
+    <script src="js/jquery.cookie.js"></script>
     <!-- Add custom CSS here -->
     <link href="css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
@@ -26,7 +26,20 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
   <body>
 
 <script>
+    var initialURL = window.location.search.substring(1);
+    var loginArray = initialURL.split('&');
+    var companyId;
+    for(var i2 = 0; i2 < initialURL.length; i2++){
+        var KeyValuePair = initialURL[i2].split('=');
+        if(KeyValuePair[0] == 'companyId'){
+            companyId = KeyValuePair[1];
+            alert(companyId);
+        } 
+    }
   $(document).ready(function(){
+
+
+
 
     var SearchString = window.location.search.substring(1);
     var VariableArray = SearchString.split('&');
@@ -43,6 +56,10 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
         var KeyValuePair = VariableArray[i].split('=');
         if(KeyValuePair[0] == 'timeRangeOptions'){
             selectedTimeRange = KeyValuePair[1];
+        } else if (KeyValuePair[0] == 'companyId') {
+          companyId = KeyValuePair[1];
+        } else {
+          // do nothing
         }
     }
     // pull back data according to the selected time range
@@ -78,7 +95,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
   // Setting up the storage arrays to assemble the graphs
 
       var morrisElementGraph = [];
-      var companyObj = $.getJSON('http://www.goosii.com:3001/analytics/displayInRange/5233805ec22ccd54d6fd2cff/' + startRange + '/' + endRange + '?callback=?',function  (data) {
+      var companyObj = $.getJSON('http://www.goosii.com:3001/analytics/displayInRange/' + companyId + '/' + startRange + '/' + endRange + '?callback=?',function  (data) {
         console.log(startRange + ' ' + endRange);
 
         var dateHasParticipants = 0;
@@ -141,14 +158,14 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
 
     // Following code takes care of the First Time Checkin Counter. Deactivated for now.
     var clientStartDate = new Date();
-    var selectedCompany = $.getJSON('http://www.goosii.com:3001/analytics/getFirsttimeCheckIns/5233805ec22ccd54d6fd2cff/' + clientStartDate.valueOf() + '?callback=?',function (data) {
+    var selectedCompany = $.getJSON('http://www.goosii.com:3001/analytics/getFirsttimeCheckIns/' + companyId + '/' + clientStartDate.valueOf() + '?callback=?',function (data) {
           $('#firstTimeCheckInCounter').text(data.length);
           
-          var totalParticipantsObj = $.getJSON('http://www.goosii.com:3001/analytics/getTotalParticipants/5233805ec22ccd54d6fd2cff/' + '?callback=?',function  (data) {
+          var totalParticipantsObj = $.getJSON('http://www.goosii.com:3001/analytics/getTotalParticipants/' + companyId + '/' + '?callback=?',function  (data) {
               console.log('THIS SHOULD WORK ' + data);
               $('#totalParticipatingCounter').text(data.length);
 
-              var totalCouponsValidatedObj = $.getJSON('http://www.goosii.com:3001/analytics/getTotalValidatedCoupons/5233805ec22ccd54d6fd2cff/' + '?callback=?',function  (data) {
+              var totalCouponsValidatedObj = $.getJSON('http://www.goosii.com:3001/analytics/getTotalValidatedCoupons/' + companyId + '/' + '?callback=?',function  (data) {
                   console.log('THIS SHOULD WORK GETTOTALVALID' + data);
                   $('#totalValidatedCoupons').text(data.length);
               });
@@ -253,6 +270,25 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li class="active"><a href="login.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a id="logoutAnalytics" href="#">
+                  <i class="fa fa-dashboard"></i> Logout
+                </a>
+                <script>
+                  $('#logoutAnalytics').bind("click",function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    var twoYearsAhead = new Date();
+                    twoYearsAhead.setFullYear(twoYearsAhead.getFullYear() + 2);
+                    // $.removeCookie('goosiiLoggedIn');
+                    // $.removeCookie('goosiiCompany');
+                    // document.cookie = "goosiiLoggedIn=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                    document.cookie = "goosiiCompany=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+                    document.cookie = "goosiiLoggedIn=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/"; 
+                    window.location.replace('http://dev.goosii.com/');
+                  });
+                </script>
+            </li>
 						<li><a href="./createEvents.html"><i class="fa fa-bar-chart-o"></i> Events</a></li>
             <li><a href="charts.html"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
             <li><a href="tables.html"><i class="fa fa-table"></i> Tables</a></li>
@@ -481,7 +517,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                   </select>
                   <script>
                     function Refresh(id){
-                      location.href="login.html?timeRangeOptions=" + id;
+                      location.href="login.html?companyId=" +companyId+"&timeRangeOptions=" + id;
                     }
                   </script>
                 </h3>

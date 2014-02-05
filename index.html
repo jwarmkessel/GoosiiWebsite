@@ -169,6 +169,7 @@ body {
 
     <!-- Bootstrap core CSS -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/sb-admin/js/jquery.cookie.js"></script>
     <!--<link href="dist/css/bootstrap.css" rel="stylesheet">-->
 
     <!-- Latest compiled and minified CSS -->
@@ -179,7 +180,17 @@ body {
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    
+    <script>
+      $(document).ready(function(){
+        // Setup drop down menu
+        $('.dropdown-toggle').dropdown();
+       
+        // Fix input element click problem
+        $('.dropdown input, .dropdown label').click(function(e) {
+          e.stopPropagation();
+        });  
+      });
+    </script>
     
     <!-- CDN <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>-->
     <!-- Just for debugging purposes. Don't actually copy this line! -->
@@ -197,6 +208,46 @@ body {
 <!-- NAVBAR
 ================================================== -->
   <body>
+    <script>
+    // function used to quickly pull back the value of a cookie
+      function getCookie(cname){
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) 
+        {
+          var c = ca[i].trim();
+          // alert(c)
+          if (c.indexOf(name)==0) 
+            return c.substring(name.length,c.length);
+        }
+        return "0";
+      }
+      var isUserLoggedIn = '';
+      var goosiiUsername = '';
+      var goosiiPassword = '';
+      var goosiiCompany = '';
+      isUserLoggedIn=getCookie("goosiiLoggedIn");
+      // alert(isUserLoggedIn);
+      // alert(document.cookie);
+      goosiiUsername=getCookie("goosiiUsername");
+      goosiiPassword=getCookie("goosiiPassword");
+      goosiiCompany=getCookie("goosiiCompany");
+      console.log('already logged in check ' + (isUserLoggedIn));
+      // alert('pause' + isUserLoggedIn );
+      //following code immediately redirects the user to the analytics page if they accidentally try to go back to the login without logging out.
+      if (isUserLoggedIn == 1){
+          window.location.replace('http://dev.goosii.com/sb-admin/login.html?companyId='+goosiiCompany);
+      }
+
+      //if the user isn't logged it but has logged in before, load his information into the login form.
+      $(document).ready(function(){
+        if (isUserLoggedIn == '' && goosiiUsername != '' && goosiiPassword != ''){
+          $('#user_username').val(goosiiUsername);
+          $('#user_password').val(goosiiPassword);
+        }
+      });
+
+    </script>
     <div class="navbar-wrapper">
       <div class="container">
 
@@ -216,6 +267,53 @@ body {
                 <li><a href="http://blog.goosii.com">Blog</a></li>
                 <li><a href="./views/contact.html">Contact</a></li>
                 <li><a href="./sb-admin/login.html">Login</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" id='SignInDropDown' href="#">Sign In</a>
+                  <div class="dropdown-menu" role="menu" area-labelledby="dLabel">
+                    <form action="post" method="post" accept-charset="UTF-8">
+                      <label for="user_username">Email:</label>
+                      <input id="user_username" style="margin-bottom: 15px;" type="text" name="user[username]" size="30" />
+                      <label for="user_password">Password:</label>
+                      <input id="user_password" style="margin-bottom: 15px;" type="password" name="user[password]" size="30" />
+                      <input id="signInSubmit" class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+                      <a id='signInForgotPassword' href="#">Forgot Password?</a>
+                      <script>
+                        $('#signInSubmit').bind("click",function(e){
+                          e.preventDefault();
+                          e.stopPropagation();
+
+                          var username;
+                          var userPassword;
+                          var companyId;
+
+                          username = $('#user_username').val();
+                          userPassword = $('#user_password').val();
+                          var loginObj = $.getJSON('http://www.goosii.com:3001/login/getCompanyObject/' + username + '/' + userPassword + '/?callback=?',function (data) {
+                            if(data !== 'undefined'){
+                              console.log(data);
+                              companyId = data._id;
+
+                              
+                              var twoYearsAhead = new Date();
+                              twoYearsAhead.setFullYear(twoYearsAhead.getFullYear() + 2);
+                              
+                              document.cookie="goosiiLoggedIn=1; expires=" + twoYearsAhead.toUTCString() + "; path=/";
+                              document.cookie="goosiiUsername="+username+"; expires=" + twoYearsAhead.toUTCString() + "; path=/";
+                              document.cookie="goosiiPassword="+userPassword+"; expires=" + twoYearsAhead.toUTCString() + "; path=/";
+                              document.cookie="goosiiCompany="+companyId+"; expires=" + twoYearsAhead.toUTCString() + "; path=/";
+
+                              window.location.replace('http://dev.goosii.com/sb-admin/login.html?companyId='+companyId);
+                            } else {
+                              alert('Invalid email or password. Insert error handling here.');
+                            }
+                          });
+                        });
+                      
+                      </script>
+
+                    </form>
+                  </div>
+                </li>
 
                 <!--<li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>

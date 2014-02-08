@@ -26,6 +26,26 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
   <body>
 
 <script>
+
+    function getCookie(cname){
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0; i<ca.length; i++) 
+      {
+        var c = ca[i].trim();
+        // alert(c)
+        if (c.indexOf(name)==0) 
+          return c.substring(name.length,c.length);
+      }
+      return "0";
+    }
+    // Kick out the user if they haven't logged in.
+    var isUserLoggedIn = '';
+    isUserLoggedIn=getCookie("goosiiLoggedIn");
+    if (isUserLoggedIn == 0){
+        window.location.replace('http://dev.goosii.com/');
+    }
+
     var initialURL = window.location.search.substring(1);
     var loginArray = initialURL.split('&');
     var companyId;
@@ -37,9 +57,6 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
         } 
     }
   $(document).ready(function(){
-
-
-
 
     var SearchString = window.location.search.substring(1);
     var VariableArray = SearchString.split('&');

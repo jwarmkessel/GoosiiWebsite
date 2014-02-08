@@ -153,6 +153,14 @@ body {
   width: 25%;
   top: 100px;
 }
+
+#flashAlerts {
+  position:fixed;
+  left:600px;
+  top:75px;
+  z-index: 9;
+  text-align: center;
+}
 </style>
 
 <!DOCTYPE html>
@@ -273,8 +281,16 @@ body {
                     <form action="post" method="post" accept-charset="UTF-8">
                       <label for="user_username">Email:</label>
                       <input id="user_username" style="margin-bottom: 15px;" type="text" name="user[username]" size="30" />
+                      <script>
+                        // populates the username entry if a previous login was attempted
+                        $('#user_username').val(getCookie("goosiiUsername"));
+                      </script>
                       <label for="user_password">Password:</label>
                       <input id="user_password" style="margin-bottom: 15px;" type="password" name="user[password]" size="30" />
+                      <script>
+                        // populates the password entry if a previous login was attempted
+                        $('#user_password').val(getCookie("goosiiPassword"));
+                      </script>
                       <input id="signInSubmit" class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
                       <a id='signInForgotPassword' href="#">Forgot Password?</a>
                       <script>
@@ -289,6 +305,7 @@ body {
                           username = $('#user_username').val();
                           userPassword = $('#user_password').val();
                           var loginObj = $.getJSON('http://www.goosii.com:3001/login/getCompanyObject/' + username + '/' + userPassword + '/?callback=?',function (data) {
+                            console.log(data); // what are we getting back?
                             if(data !== 'undefined'){
                               console.log(data);
                               companyId = data._id;
@@ -304,7 +321,11 @@ body {
 
                               window.location.replace('http://dev.goosii.com/sb-admin/login.html?companyId='+companyId);
                             } else {
-                              alert('Invalid email or password. Insert error handling here.');
+                                      errorDisplay = '<div class="alert alert-error">Incorrect username or password.</div>';
+                                      $('#flashAlerts').append(errorDisplay);
+                                      $("#flashAlerts").removeAttr('style');
+                                      $('#flashAlerts').fadeOut(2000);
+                              // alert('Invalid email or password. Insert error handling here.');
                             }
                           });
                         });
@@ -337,7 +358,9 @@ body {
 
 
     <!-- Carousel
-    ================================================== -->
+    ================================================== -->      
+    <div id="flashAlerts"></div>
+
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
 <!--      <ol class="carousel-indicators">

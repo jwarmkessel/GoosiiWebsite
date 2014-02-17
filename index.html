@@ -305,9 +305,8 @@ body {
                           username = $('#user_username').val();
                           userPassword = $('#user_password').val();
                           var loginObj = $.getJSON('http://www.goosii.com:3001/login/getCompanyObject/' + username + '/' + userPassword + '/?callback=?',function (data) {
-                            console.log(data); // what are we getting back?
-                            if(data !== 'undefined'){
-                              console.log(data);
+                            // alert(data); // what are we getting back?
+                            if(data !== 'invalid'){
                               companyId = data._id;
 
                               
@@ -321,7 +320,9 @@ body {
 
                               window.location.replace('http://dev.goosii.com/sb-admin/login.html?companyId='+companyId);
                             } else {
-                                      errorDisplay = '<div class="alert alert-error">Incorrect username or password.</div>';
+                                      // we need to first empty out #flashMessages or the error message will be repeated
+                                      $('#flashAlerts').empty();
+                                      errorDisplay = '<div class="alert alert-danger">Incorrect username or password.</div>';
                                       $('#flashAlerts').append(errorDisplay);
                                       $("#flashAlerts").removeAttr('style');
                                       $('#flashAlerts').fadeOut(2000);

@@ -318,7 +318,9 @@ body {
                               document.cookie="goosiiPassword="+userPassword+"; expires=" + twoYearsAhead.toUTCString() + "; path=/";
                               document.cookie="goosiiCompany="+companyId+"; expires=" + twoYearsAhead.toUTCString() + "; path=/";
 
-                              window.location.replace('http://dev.goosii.com/sb-admin/login.html?companyId='+companyId);
+                              // Temporarily replaced with main.html. The company analytics will eventually be replaced with AJAX views.  
+                              // window.location.replace('http://dev.goosii.com/sb-admin/login.html?companyId='+companyId);
+                              window.location.replace('http://dev.goosii.com/sb-admin/main.html');
                             } else {
                                       // we need to first empty out #flashMessages or the error message will be repeated
                                       $('#flashAlerts').empty();

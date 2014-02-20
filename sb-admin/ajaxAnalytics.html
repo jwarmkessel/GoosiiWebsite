@@ -20,6 +20,15 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <!-- Page Specific CSS -->
     <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+    <!-- JavaScript -->
+    <script src="js/bootstrap.js"></script>
+
+    <!-- Page Specific Plugins -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+    
+    <script src="js/tablesorter/jquery.tablesorter.js"></script>
+    <script src="js/tablesorter/tables.js"></script>
   </head>
 
   <body>
@@ -48,13 +57,15 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
     var initialURL = window.location.search.substring(1);
     var loginArray = initialURL.split('&');
     var companyId;
-    for(var i2 = 0; i2 < initialURL.length; i2++){
-        var KeyValuePair = initialURL[i2].split('=');
-        if(KeyValuePair[0] == 'companyId'){
-            companyId = KeyValuePair[1];
-            alert(companyId);
-        } 
-    }
+    // MC: We can't use the URL as this is an AJAX request. Pull the company data from the cookie instead.
+    companyId=getCookie("goosiiCompany");
+    // for(var i2 = 0; i2 < initialURL.length; i2++){
+    //     var KeyValuePair = initialURL[i2].split('=');
+    //     if(KeyValuePair[0] == 'companyId'){
+    //         companyId = KeyValuePair[1];
+    //         alert(companyId);
+    //     } 
+    // }
   $(document).ready(function(){
 
     var SearchString = window.location.search.substring(1);
@@ -108,71 +119,8 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
     var dates = new Array();
     var dateObjects = new Array();
     var uniqueParticipants = new Array();
-  // Setting up the storage arrays to assemble the graphs
 
-      var morrisElementGraph = [];
-      var companyObj = $.getJSON('http://www.goosii.com:3001/analytics/displayInRange/' + companyId + '/' + startRange + '/' + endRange + '?callback=?',function  (data) {
-        console.log(startRange + ' ' + endRange);
 
-        var dateHasParticipants = 0;
-        var milliSecBetweenStartAndEnd = endRange - startRange;
-        var elapsedDays = milliSecBetweenStartAndEnd / 86400000;
-        if((milliSecBetweenStartAndEnd % 86400000) > 0){
-          elapsedDays += 1;
-        }
-
-        // First, set up the whole range with a vale of zero
-        for(var i=0 ; i < elapsedDays ; i++){
-
-            aDate = new Date(startRange);
-
-            var calendarDate = aDate.getFullYear() + '-' + (aDate.getMonth() + 1) + '-' + aDate.getDate();
-            // see if the calendar date has any participants. If it does, jump over it. 
-            for(j=0; j<data.length; j++){
-              dateObj = new Date(data[j].timestamp);
-              var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
-              if(calendarDate == calendarDateFTP){
-                dateHasParticipants = 1;
-                break;
-              }
-            }
-
-            if(dateHasParticipants == 1){
-              // do nothing
-            } else {
-              morrisElementGraph.push({d : calendarDate, visits : 0}); 
-            }
-            dateHasParticipants = 0;
-            startRange +=  86400000;
-        }
-
-        //Isolate the dates of the FTPs and replace.
-        for(j=0; j<data.length; j++){
-					var totalParticipantsOfDay = 0;    
-					dateObj = new Date(data[j].timestamp);
-					var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
-					var previousDate;
-					if(j == 0) {
-
-						previousDate = calendarDateFTP;
-						totalParticipantsOfDay++;
-					} else {		
-
-						if(calendarDateFTP == previousDate) {
-
-							totalParticipantsOfDay++;
-						} else {
-						
-							previousDate = calendarDateFTP;
-							totalParticipantsOfDay = 1;
-						}
-						morrisElementGraph.push({d : calendarDateFTP, visits : totalParticipantsOfDay});     
-					}
-				}
-
-				console.log(morrisElementGraph);
-
-    // Following code takes care of the First Time Checkin Counter. Deactivated for now.
     var clientStartDate = new Date();
     var selectedCompany = $.getJSON('http://www.goosii.com:3001/analytics/getFirsttimeCheckIns/' + companyId + '/' + clientStartDate.valueOf() + '?callback=?',function (data) {
           $('#firstTimeCheckInCounter').text(data.length);
@@ -184,6 +132,26 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
               var totalCouponsValidatedObj = $.getJSON('http://www.goosii.com:3001/analytics/getTotalValidatedCoupons/' + companyId + '/' + '?callback=?',function  (data) {
                   console.log('THIS SHOULD WORK GETTOTALVALID' + data);
                   $('#totalValidatedCoupons').text(data.length);
+
+                  // MC: Loading in the graph from analyticsGraph.html
+                  $.ajax({
+                    type:'POST',
+                    url: 'http://dev.goosii.com/sb-admin/analyticsGraph.html?companyId='+companyId,
+                    // data:{company_id:companyId_analytics},
+                    cache: false,
+                    timeout:7000,
+                    processData:true,
+                    success: function(data){
+                      // alert(data);
+                      $("#theChart").append(data);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                      alert('ERROR');
+                    },
+                    complete: function(XMLHttpRequest, status){
+                      // alert('COMPLETE')
+                    }
+                  });
               });
           });
 
@@ -191,83 +159,146 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
 
     });
 
+  // Setting up the storage arrays to assemble the graphs
+  /*******************************************************************************/
+    //   var morrisElementGraph = [];
+    //   var companyObj = $.getJSON('http://www.goosii.com:3001/analytics/displayInRange/' + companyId + '/' + startRange + '/' + endRange + '?callback=?',function  (data) {
+    //     console.log(startRange + ' ' + endRange);
+
+    //     var dateHasParticipants = 0;
+    //     var milliSecBetweenStartAndEnd = endRange - startRange;
+    //     var elapsedDays = milliSecBetweenStartAndEnd / 86400000;
+    //     if((milliSecBetweenStartAndEnd % 86400000) > 0){
+    //       elapsedDays += 1;
+    //     }
+
+    //     // First, set up the whole range with a vale of zero
+    //     for(var i=0 ; i < elapsedDays ; i++){
+
+    //         aDate = new Date(startRange);
+
+    //         var calendarDate = aDate.getFullYear() + '-' + (aDate.getMonth() + 1) + '-' + aDate.getDate();
+    //         // see if the calendar date has any participants. If it does, jump over it. 
+    //         for(j=0; j<data.length; j++){
+    //           dateObj = new Date(data[j].timestamp);
+    //           var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
+    //           if(calendarDate == calendarDateFTP){
+    //             dateHasParticipants = 1;
+    //             break;
+    //           }
+    //         }
+
+    //         if(dateHasParticipants == 1){
+    //           // do nothing
+    //         } else {
+    //           morrisElementGraph.push({d : calendarDate, visits : 0}); 
+    //         }
+    //         dateHasParticipants = 0;
+    //         startRange +=  86400000;
+    //     }
+
+    //     //Isolate the dates of the FTPs and replace.
+    //     for(j=0; j<data.length; j++){
+				// 	var totalParticipantsOfDay = 0;    
+				// 	dateObj = new Date(data[j].timestamp);
+				// 	var calendarDateFTP = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate();
+				// 	var previousDate;
+				// 	if(j == 0) {
+
+				// 		previousDate = calendarDateFTP;
+				// 		totalParticipantsOfDay++;
+				// 	} else {		
+
+				// 		if(calendarDateFTP == previousDate) {
+
+				// 			totalParticipantsOfDay++;
+				// 		} else {
+						
+				// 			previousDate = calendarDateFTP;
+				// 			totalParticipantsOfDay = 1;
+				// 		}
+				// 		morrisElementGraph.push({d : calendarDateFTP, visits : totalParticipantsOfDay});     
+				// 	}
+				// }
+
+				// console.log(morrisElementGraph);
+
+    // Following code takes care of the First Time Checkin Counter. Deactivated for now.
+
        /******************* MORRIS CHART CODE ************************/
 
        // First Chart Example - Area Line Chart
 
-        Morris.Area({
-          // ID of the element in which to draw the chart.
-          element: 'morris-chart-area',
-          // Chart data records -- each entry in this array corresponds to a point on
-          // the chart.
-          data: morrisElementGraph,
-          // The name of the data record attribute that contains x-visitss.
-          xkey: 'd',
-          // A list of names of data record attributes that contain y-visitss.
-          ykeys: ['visits'],
-          // Labels for the ykeys -- will be displayed when you hover over the
-          // chart.
-          labels: ['Visits'],
-          // Disables line smoothing
-          smooth: false,
-        });
+      //   Morris.Area({
+      //     // ID of the element in which to draw the chart.
+      //     element: 'morris-chart-area',
+      //     // Chart data records -- each entry in this array corresponds to a point on
+      //     // the chart.
+      //     data: morrisElementGraph,
+      //     // The name of the data record attribute that contains x-visitss.
+      //     xkey: 'd',
+      //     // A list of names of data record attributes that contain y-visitss.
+      //     ykeys: ['visits'],
+      //     // Labels for the ykeys -- will be displayed when you hover over the
+      //     // chart.
+      //     labels: ['Visits'],
+      //     // Disables line smoothing
+      //     smooth: false,
+      //   });
 
-        Morris.Donut({
-          element: 'morris-chart-donut',
-          data: [
-            {label: "Referral", value: 42.7},
-            {label: "Direct", value: 8.3},
-            {label: "Social", value: 12.8},
-            {label: "Organic", value: 36.2}
-          ],
-          formatter: function (y) { return y + "%" ;}
-        });
+      //   Morris.Donut({
+      //     element: 'morris-chart-donut',
+      //     data: [
+      //       {label: "Referral", value: 42.7},
+      //       {label: "Direct", value: 8.3},
+      //       {label: "Social", value: 12.8},
+      //       {label: "Organic", value: 36.2}
+      //     ],
+      //     formatter: function (y) { return y + "%" ;}
+      //   });
 
-        Morris.Line({
-          // ID of the element in which to draw the chart.
-          element: 'morris-chart-line',
-          // Chart data records -- each entry in this array corresponds to a point on
-          // the chart.
-          data: morrisElementGraph,
-          // The name of the data record attribute that contains x-visitss.
-          xkey: 'd',
-          // A list of names of data record attributes that contain y-visitss.
-          ykeys: ['visits'],
-          // Labels for the ykeys -- will be displayed when you hover over the
-          // chart.
-          labels: ['Visits'],
-          // Disables line smoothing
-          smooth: false,
-        });
+      //   Morris.Line({
+      //     // ID of the element in which to draw the chart.
+      //     element: 'morris-chart-line',
+      //     // Chart data records -- each entry in this array corresponds to a point on
+      //     // the chart.
+      //     data: morrisElementGraph,
+      //     // The name of the data record attribute that contains x-visitss.
+      //     xkey: 'd',
+      //     // A list of names of data record attributes that contain y-visitss.
+      //     ykeys: ['visits'],
+      //     // Labels for the ykeys -- will be displayed when you hover over the
+      //     // chart.
+      //     labels: ['Visits'],
+      //     // Disables line smoothing
+      //     smooth: false,
+      //   });
 
-        Morris.Bar ({
-          element: 'morris-chart-bar',
-          data: [
-          {device: 'iPhone', geekbench: 136},
-          {device: 'iPhone 3G', geekbench: 137},
-          {device: 'iPhone 3GS', geekbench: 275},
-          {device: 'iPhone 4', geekbench: 380},
-          {device: 'iPhone 4S', geekbench: 655},
-          {device: 'iPhone 5', geekbench: 1571}
-          ],
-          xkey: 'device',
-          ykeys: ['geekbench'],
-          labels: ['Geekbench'],
-          barRatio: 0.4,
-          xLabelAngle: 35,
-          hideHover: 'auto'
-        });
-
-
-      });
-        /*****************************************/
+      //   Morris.Bar ({
+      //     element: 'morris-chart-bar',
+      //     data: [
+      //     {device: 'iPhone', geekbench: 136},
+      //     {device: 'iPhone 3G', geekbench: 137},
+      //     {device: 'iPhone 3GS', geekbench: 275},
+      //     {device: 'iPhone 4', geekbench: 380},
+      //     {device: 'iPhone 4S', geekbench: 655},
+      //     {device: 'iPhone 5', geekbench: 1571}
+      //     ],
+      //     xkey: 'device',
+      //     ykeys: ['geekbench'],
+      //     labels: ['Geekbench'],
+      //     barRatio: 0.4,
+      //     xLabelAngle: 35,
+      //     hideHover: 'auto'
+      //   });
 
 
-
-  });
+      // });
+  /*******************************************************************************/
+             
+  }); // end document.ready
 </script>
 
-    <div id="wrapper">
 
       <!-- Sidebar -->
 
@@ -373,7 +404,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                 </h3>
               </div>
               <div class="panel-body">
-                <div id="morris-chart-area"></div>
+                <div id="theChart"></div>
               </div>
             </div>
           </div>
@@ -382,17 +413,7 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
 
 				<!--"INSERT ADDITIONAL CONFIGS"-->
       </div>
-     </div>   
 
-    <!-- JavaScript -->
-    <script src="js/bootstrap.js"></script>
-
-    <!-- Page Specific Plugins -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
-    
-    <script src="js/tablesorter/jquery.tablesorter.js"></script>
-    <script src="js/tablesorter/tables.js"></script>
 
   </body>
 </html>

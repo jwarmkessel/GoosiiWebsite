@@ -106,14 +106,15 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                       timeout:7000,
                       processData:true,
                       success: function(data){
-                        alert(data);
+                        console.log('SUCCESS');
                         $("#page-wrapper").append(data);
                       },
                       error: function(XMLHttpRequest, textStatus, errorThrown){
-                        alert('ERROR');
+                        // alert('ERROR');
                       },
                       complete: function(XMLHttpRequest, status){
-                        alert('COMPLETE')
+                        console.log('COMPLETE');
+                        // alert('COMPLETE')
                       }
                     });
                   });

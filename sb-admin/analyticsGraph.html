@@ -32,18 +32,18 @@
 
     <script>
 
-        function getCookie(cname){
-          var name = cname + "=";
-          var ca = document.cookie.split(';');
-          for(var i=0; i<ca.length; i++) 
-          {
-            var c = ca[i].trim();
-            // alert(c)
-            if (c.indexOf(name)==0) 
-              return c.substring(name.length,c.length);
-          }
-          return "0";
-        }
+        // function getCookie(cname){
+        //   var name = cname + "=";
+        //   var ca = document.cookie.split(';');
+        //   for(var i=0; i<ca.length; i++) 
+        //   {
+        //     var c = ca[i].trim();
+        //     // alert(c)
+        //     if (c.indexOf(name)==0) 
+        //       return c.substring(name.length,c.length);
+        //   }
+        //   return "0";
+        // }
         // Kick out the user if they haven't logged in.
         var isUserLoggedIn = '';
         isUserLoggedIn=getCookie("goosiiLoggedIn");
@@ -56,6 +56,7 @@
         var companyId;
         // MC: We can't use the URL as this is an AJAX request. Pull the company data from the cookie instead.
         companyId=getCookie("goosiiCompany");
+        // alert(startRange);
         // for(var i2 = 0; i2 < initialURL.length; i2++){
         //     var KeyValuePair = initialURL[i2].split('=');
         //     if(KeyValuePair[0] == 'companyId'){
@@ -63,54 +64,54 @@
         //         alert(companyId);
         //     } 
         // }
-      $(document).ready(function(){
+      // $(document).ready(function(){
 
-        var SearchString = window.location.search.substring(1);
-        var VariableArray = SearchString.split('&');
-        var selectedTimeRange = '';
-        var today = new Date();
-        today.setHours(0);
-        today.setMinutes(0);
-        today.setSeconds(0);
-        today.setMilliseconds(0);
-        var startOfTimeRange = new Date();
+        // var SearchString = window.location.search.substring(1);
+        // var VariableArray = SearchString.split('&');
+        // var selectedTimeRange = '';
+        // var today = new Date();
+        // today.setHours(0);
+        // today.setMinutes(0);
+        // today.setSeconds(0);
+        // today.setMilliseconds(0);
+        // var startOfTimeRange = new Date();
 
         // check the URL to see what range setting is set
-        for(var i = 0; i < VariableArray.length; i++){
-            var KeyValuePair = VariableArray[i].split('=');
-            if(KeyValuePair[0] == 'timeRangeOptions'){
-                selectedTimeRange = KeyValuePair[1];
-            } else if (KeyValuePair[0] == 'companyId') {
-              companyId = KeyValuePair[1];
-            } else {
-              // do nothing
-            }
-        }
+        // for(var i = 0; i < VariableArray.length; i++){
+        //     var KeyValuePair = VariableArray[i].split('=');
+        //     if(KeyValuePair[0] == 'timeRangeOptions'){
+        //         selectedTimeRange = KeyValuePair[1];
+        //     } else if (KeyValuePair[0] == 'companyId') {
+        //       companyId = KeyValuePair[1];
+        //     } else {
+        //       // do nothing
+        //     }
+        // }
         // pull back data according to the selected time range
-        switch(selectedTimeRange){
-          case 'lastYear': 
-            startOfTimeRange.setDate(today.getDate() - 365);
-            startRange = startOfTimeRange.valueOf()
-            endRange = today.valueOf();
-            $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
-            $('#timeRangeOptions').val('lastYear');
-            break;
-          case 'lastThirtyDays': 
-            startOfTimeRange.setDate(today.getDate() - 30);
-            startRange = startOfTimeRange.valueOf()
-            endRange = today.valueOf();
-            $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
-            $('#timeRangeOptions').val('lastThirtyDays');
-            break;
-          case 'lastWeek': 
-          default:
-            startOfTimeRange.setDate(today.getDate() - 7);
-            startRange = startOfTimeRange.valueOf()
-            endRange = today.valueOf();
-            $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
-            $('#timeRangeOptions').val('lastWeek');
-            break;
-        }
+        // switch(selectedTimeRange){
+        //   case 'lastYear': 
+        //     startOfTimeRange.setDate(today.getDate() - 365);
+        //     startRange = startOfTimeRange.valueOf()
+        //     endRange = today.valueOf();
+        //     $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+        //     $('#timeRangeOptions').val('lastYear');
+        //     break;
+        //   case 'lastThirtyDays': 
+        //     startOfTimeRange.setDate(today.getDate() - 30);
+        //     startRange = startOfTimeRange.valueOf()
+        //     endRange = today.valueOf();
+        //     $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+        //     $('#timeRangeOptions').val('lastThirtyDays');
+        //     break;
+        //   case 'lastWeek': 
+        //   default:
+        //     startOfTimeRange.setDate(today.getDate() - 7);
+        //     startRange = startOfTimeRange.valueOf()
+        //     endRange = today.valueOf();
+        //     $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+        //     $('#timeRangeOptions').val('lastWeek');
+        //     break;
+        // }
 
 
         var dates = new Array();
@@ -254,7 +255,7 @@
 
 
 
-      });
+      // });
     </script>
 
     <div id="morris-chart-area"></div>

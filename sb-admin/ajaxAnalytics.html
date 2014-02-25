@@ -34,7 +34,8 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
   <body>
 
 <script>
-
+    var startRange;
+    var endRange;
     function getCookie(cname){
       var name = cname + "=";
       var ca = document.cookie.split(';');
@@ -90,30 +91,30 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
         }
     }
     // pull back data according to the selected time range
-    switch(selectedTimeRange){
-      case 'lastYear': 
-        startOfTimeRange.setDate(today.getDate() - 365);
-        startRange = startOfTimeRange.valueOf()
-        endRange = today.valueOf();
-        $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
-        $('#timeRangeOptions').val('lastYear');
-        break;
-      case 'lastThirtyDays': 
-        startOfTimeRange.setDate(today.getDate() - 30);
-        startRange = startOfTimeRange.valueOf()
-        endRange = today.valueOf();
-        $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
-        $('#timeRangeOptions').val('lastThirtyDays');
-        break;
-      case 'lastWeek': 
-      default:
-        startOfTimeRange.setDate(today.getDate() - 7);
-        startRange = startOfTimeRange.valueOf()
-        endRange = today.valueOf();
-        $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
-        $('#timeRangeOptions').val('lastWeek');
-        break;
-    }
+    // switch(selectedTimeRange){
+    //   case 'lastYear': 
+    //     startOfTimeRange.setDate(today.getDate() - 365);
+    //     startRange = startOfTimeRange.valueOf()
+    //     endRange = today.valueOf();
+    //     $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+    //     $('#timeRangeOptions').val('lastYear');
+    //     break;
+    //   case 'lastThirtyDays': 
+    //     startOfTimeRange.setDate(today.getDate() - 30);
+    //     startRange = startOfTimeRange.valueOf()
+    //     endRange = today.valueOf();
+    //     $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+    //     $('#timeRangeOptions').val('lastThirtyDays');
+    //     break;
+    //   case 'lastWeek': 
+    //   default:
+    //     startOfTimeRange.setDate(today.getDate() - 7);
+    //     startRange = startOfTimeRange.valueOf()
+    //     endRange = today.valueOf();
+    //     $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+    //     $('#timeRangeOptions').val('lastWeek');
+    //     break;
+    // }
 
 
     var dates = new Array();
@@ -134,24 +135,24 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
                   $('#totalValidatedCoupons').text(data.length);
 
                   // MC: Loading in the graph from analyticsGraph.html
-                  $.ajax({
-                    type:'POST',
-                    url: 'http://dev.goosii.com/sb-admin/analyticsGraph.html?companyId='+companyId,
-                    // data:{company_id:companyId_analytics},
-                    cache: false,
-                    timeout:7000,
-                    processData:true,
-                    success: function(data){
-                      // alert(data);
-                      $("#theChart").append(data);
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown){
-                      alert('ERROR');
-                    },
-                    complete: function(XMLHttpRequest, status){
-                      // alert('COMPLETE')
-                    }
-                  });
+                  // $.ajax({
+                  //   type:'POST',
+                  //   url: 'http://dev.goosii.com/sb-admin/analyticsGraph.html?companyId='+companyId,
+                  //   // data:{company_id:companyId_analytics},
+                  //   cache: false,
+                  //   timeout:7000,
+                  //   processData:true,
+                  //   success: function(data){
+                  //     // alert(data);
+                  //     $("#theChart").append(data);
+                  //   },
+                  //   error: function(XMLHttpRequest, textStatus, errorThrown){
+                  //     alert('ERROR');
+                  //   },
+                  //   complete: function(XMLHttpRequest, status){
+                  //     // alert('COMPLETE')
+                  //   }
+                  // });
               });
           });
 
@@ -391,14 +392,110 @@ http://learn.shayhowe.com/advanced-html-css/responsive-web-design/
             <div class="panel panel-primary">
               <div class="panel-heading">
                 <h3 id="dateRange"  class="panel-title"><iclass="fa fa-bar-chart-o"></i><span id="analyzedDates"> Checkin Statistics: October 1, 2013 - October 31, 2013</span>
-                  <select id="timeRangeOptions" onChange="Refresh(this.value)">
+                  <select id="timeRangeOptions" onChange="loadTimeRange(this.value)">
                     <option value="lastWeek">Last Week:</option>
                     <option value="lastThirtyDays">Last 30 Days:</option>
                     <option value="lastYear">Last Year:</option>
                   </select>
                   <script>
-                    function Refresh(id){
-                      location.href="login.html?companyId=" +companyId+"&timeRangeOptions=" + id;
+                    // MC: The following two lines are needed to show the initial graph for the past seven days.
+                    $('#theChart').empty();
+                    loadTimeRange('lastWeek');
+                    function loadTimeRange(selectedTimeRange){
+                      // location.href="login.html?companyId=" +companyId+"&timeRangeOptions=" + id;
+                      var startOfTimeRange = new Date();
+                      var today = new Date();
+                      switch(selectedTimeRange){
+                        case 'lastYear': 
+                          startOfTimeRange.setDate(today.getDate() - 365);
+                          startRange = startOfTimeRange.valueOf()
+                          endRange = today.valueOf();
+                          companyId=getCookie("goosiiCompany");
+                          $('#theChart').empty();
+
+                            // MC: Loading in the graph from analyticsGraph.html
+                            $.ajax({
+                              type:'POST',
+                              url: 'http://dev.goosii.com/sb-admin/analyticsGraph.html',
+                              // data:{company_id:companyId_analytics},
+                              cache: false,
+                              timeout:7000,
+                              processData:true,
+                              success: function(data){
+                                // alert('success');
+                                $('#theChart').append(data);
+                              },
+                              error: function(XMLHttpRequest, textStatus, errorThrown){
+                                // alert('ERROR');
+                              },
+                              complete: function(XMLHttpRequest, status){
+                                // alert('COMPLETE')
+                              }
+                            });
+                          $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+                          // $('#timeRangeOptions').val('lastYear');
+                          break;
+                        case 'lastThirtyDays': 
+                          startOfTimeRange.setDate(today.getDate() - 30);
+                          startRange = startOfTimeRange.valueOf()
+                          endRange = today.valueOf();
+                          companyId=getCookie("goosiiCompany");
+                          // alert(startRange + ' ' + endRange + ' ' + companyId);
+                          $('#theChart').empty();
+
+                            // MC: Loading in the graph from analyticsGraph.html
+                            $.ajax({
+                              type:'POST',
+                              url: 'http://dev.goosii.com/sb-admin/analyticsGraph.html',
+                              // data:{company_id:companyId_analytics},
+                              cache: false,
+                              timeout:7000,
+                              processData:true,
+                              success: function(data){
+                                // alert('success');
+                                $('#theChart').append(data);
+                              },
+                              error: function(XMLHttpRequest, textStatus, errorThrown){
+                                // alert('ERROR');
+                              },
+                              complete: function(XMLHttpRequest, status){
+                                // alert('COMPLETE')
+                              }
+                            });
+                          $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+                          // $('#timeRangeOptions').val('lastThirtyDays');
+                          break;
+                        case 'lastWeek': 
+                        default:
+                          startOfTimeRange.setDate(today.getDate() - 7);
+                          startRange = startOfTimeRange.valueOf()
+                          endRange = today.valueOf();
+                          companyId=getCookie("goosiiCompany");
+                          $('#theChart').empty();
+
+                            // MC: Loading in the graph from analyticsGraph.html
+                            $.ajax({
+                              type:'POST',
+                              url: 'http://dev.goosii.com/sb-admin/analyticsGraph.html',
+                              // data:{company_id:companyId_analytics},
+                              cache: false,
+                              timeout:7000,
+                              processData:true,
+                              success: function(data){
+                                // alert('success');
+                                $('#theChart').append(data);
+                              },
+                              error: function(XMLHttpRequest, textStatus, errorThrown){
+                                // alert('ERROR');
+                              },
+                              complete: function(XMLHttpRequest, status){
+                                // alert('COMPLETE')
+                              }
+                            });
+                          $('#analyzedDates').text(startOfTimeRange.toDateString() + '-' + today.toDateString());
+                          // $('#timeRangeOptions').val('lastWeek');
+                          break;
+                      }
                     }
                   </script>
                 </h3>
